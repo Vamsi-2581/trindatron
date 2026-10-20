@@ -141,8 +141,10 @@ def test_no_retired_model_can_reach_a_built_chain(plan, capability, task_type):
 def test_agent_routing_is_untouched_by_the_gemini_swap(plan):
     chain = _chain(ModelRouter(), capability="agent",
                    task_type=TaskType.AGENT, plan=plan)
-    assert chain[0] == "mistral-small", chain
-    assert chain[1] == "gpt-4o-mini", chain
+    # Order since 2026-10-20, when the gpt-4o-mini alias moved to the cheaper
+    # gpt-6-luna; the Gemini swap still does not touch it.
+    assert chain[0] == "gpt-4o-mini", chain
+    assert chain[1] == "mistral-small", chain
 
 
 @pytest.mark.parametrize("plan", ("pro", "max", "team"))

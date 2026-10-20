@@ -75,7 +75,7 @@ def test_disabling_the_primary_provider_makes_agent_fail_over_for_real(client, d
 
     assert resp.status_code == 200
     assert "claude-sonnet-5" not in calls  # the disabled provider's litellm model id
-    assert "gpt-4o-mini" in calls
+    assert "gpt-6-luna" in calls  # model behind the gpt-4o-mini alias since 2026-10-20
 
 
 def test_disabling_every_agent_candidate_returns_a_provider_error_to_the_client(client, db, auth_headers, monkeypatch):
@@ -129,4 +129,4 @@ def test_provider_disable_does_not_affect_other_users_normal_requests(client, db
     resp = client.post(f"/sessions/{session_id}/agent", json={"content": "search the web for python tutorials"}, headers=auth_headers)
 
     assert resp.status_code == 200
-    assert calls == ["gpt-4o-mini"]  # cheapest capable for this low-complexity request; no failover
+    assert calls == ["gpt-6-luna"]  # cheapest capable for this low-complexity request; no failover

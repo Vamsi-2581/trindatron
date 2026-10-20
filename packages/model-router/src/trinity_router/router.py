@@ -584,6 +584,7 @@ class ModelRouter:
                     max_tokens=effective_tokens,
                     # A free source reached on its own endpoint (Cloudflare) adds its base URL and key here.
                     **free_pool.call_kwargs(key),
+                    **dict(cfg.call_params),
                 )
 
             except Exception as exc:
@@ -842,6 +843,7 @@ class ModelRouter:
                     stream=True,
                     stream_options={"include_usage": True},
                     **free_pool.call_kwargs(key),
+                    **dict(cfg.call_params),
                 )
             except Exception as exc:
                 latency_ms = (time.monotonic() - start) * 1000

@@ -15,13 +15,13 @@ context_window = max INPUT tokens (from litellm max_input_tokens).
 
 Economic tiers (input / output cost per 1M tokens):
   ULTRA_LOW  groq-llama4-scout   $0.075 / $0.30 — CHAT only; GPT-OSS 20B on Groq; 131K ctx
-  LOW        gpt-4o-mini          $0.15 / $0.60  — CHAT + AGENT; 128K ctx
+  LOW        gpt-4o-mini          $0.10 / $0.50  — CHAT + AGENT; now gpt-6-luna; 922K ctx
   LOW        mistral-small        $0.15 / $0.60  — CHAT + AGENT (primary for capability="agent"); 262K ctx; tools OK
   LOW        gemini-25-flash-lite $0.30 / $2.50  — CHAT + files; 1M ctx; tools OK
   STANDARD   claude-haiku         $1.00 / $5.00  — (reserved for intent classifier)
   STANDARD   xai-grok             $1.25 / $2.50  — CHAT; in catalog only, not yet in any chain
   STANDARD   claude-sonnet        $2.00 / $10.00 — primary AGENT + complex CHAT
-  STANDARD   gpt-4o               $2.50 / $10.00 — PRO fallback
+  STANDARD   gpt-4o               $2.00 / $10.00 — PRO fallback; now gpt-6.1-sol
   PREMIUM    claude-opus          $5.00 / $25.00 — MAX primary
 
 Privacy:
@@ -127,6 +127,11 @@ class ProviderModel:
     long_context_price_multiplier: float = 1.0
     supports_tools: bool = True
     supports_streaming: bool = True
+    #: Extra litellm.acompletion() keyword arguments this model needs on every
+    #: call, as ((name, value), ...) — a tuple of pairs for the same reason as
+    #: capability_priority below. Empty for almost every model; see the
+    #: gpt-4o-mini entry for the one that needs it.
+    call_params: tuple[tuple[str, str], ...] = ()
     priority: int = 0                # lower = preferred
     #: Per-capability overrides of `priority`, as ((capability, priority), ...).
     #:
@@ -264,19 +269,29 @@ PROVIDER_CATALOG: dict[str, ProviderModel] = {
         supported_task_types=_TEXT_TASK_TYPES, supported_capabilities=_TEXT_CAPABILITIES,
     ),
     # ── OpenAI ─────────────────────────────────────────────────────────────
+    # OpenAI shuts down gpt-4o, gpt-4o-mini, gpt-4.1 and gpt-4.1-mini on
+    # 2027-01-14 (deprecations page, entry of 2026-10-14). Both aliases below
+    # were moved to GPT-6 models on 2026-10-20, keeping the alias names the
+    # same way groq-llama4-scout and gemini-25-flash-lite did: the keys are
+    # stored in kill switches and runtime settings, the model behind them is
+    # not. The retired ids are in RETIRED_MODEL_IDS.
+    #
+    # Both new ids need litellm >= 1.104.0. Live-verified 2026-10-20 that
+    # 1.97.0 sends max_tokens (OpenAI answers 400 "use max_completion_tokens")
+    # and rejects reasoning_effort for them; 1.104.0 handles both.
     "gpt-4o": ProviderModel(
         provider="openai",
-        model_id="gpt-4o",
-        context_window=128_000,
-        cost_per_1m_input_usd=2.5,
+        # gpt-6.1-sol: same STANDARD price class as gpt-4o ($2.00/$10.00 against
+        # $2.50/$10.00). Live-verified 2026-10-20 through litellm: plain chat,
+        # tool calling and streaming all work.
+        model_id="gpt-6.1-sol",
+        context_window=922_000,
+        cost_per_1m_input_usd=2.0,
         cost_per_1m_output_usd=10.0,
-        # Prompt caching MEASURED 2026-09-13 with the real System Policy as the
-        # prefix: 1,152 of 1,339 prompt tokens cached on 6 of 6 repeated calls.
-        # Automatic above 1,024 tokens, like gpt-4o-mini; hits are best effort
-        # (an earlier probe the same day saw 0 of 4), which is why only the
-        # tokens a provider reports as cached are ever priced at this rate.
-        # Official OpenAI rate: half the $2.50 input price.
-        cost_per_1m_cached_input_usd=1.25,
+        # Prompt caching MEASURED 2026-10-20 with a 1,829-token system prefix:
+        # call 1 cached 0, calls 2-4 cached 1,812. Official rate $0.10, a
+        # twentieth of the input price (gpt-4o's was half).
+        cost_per_1m_cached_input_usd=0.10,
         priority=30,
         quality_class="standard",
         speed_class="standard",
@@ -285,17 +300,22 @@ PROVIDER_CATALOG: dict[str, ProviderModel] = {
     ),
     "gpt-4o-mini": ProviderModel(
         provider="openai",
-        model_id="gpt-4o-mini",
-        context_window=128_000,
-        cost_per_1m_input_usd=0.15,
-        cost_per_1m_output_usd=0.60,
-        # Prompt caching MEASURED against the live API on 2026-09-12 with the
-        # real System Policy as the prefix: call 1 cached 0, calls 2-4 cached
-        # 1024 of 1082 prompt tokens (94.6%), identically in complete() and
-        # stream(). OpenAI enables this automatically for prefixes >=1024
-        # tokens - no request parameter turns it on, and none was added.
-        # Cached reads bill at half the standard input rate.
-        cost_per_1m_cached_input_usd=0.075,
+        # gpt-6-luna: the replacement OpenAI names for all four retiring
+        # models, and cheaper than gpt-4o-mini was ($0.10/$0.50 against
+        # $0.15/$0.60).
+        model_id="gpt-6-luna",
+        context_window=922_000,
+        cost_per_1m_input_usd=0.10,
+        cost_per_1m_output_usd=0.50,
+        # Prompt caching MEASURED 2026-10-20 with a 1,829-token system prefix:
+        # call 1 cached 0, calls 2-4 cached 1,812. Automatic, like gpt-4o-mini;
+        # the official cached rate is a tenth of the input price.
+        cost_per_1m_cached_input_usd=0.01,
+        # Luna reasons at "medium" effort by default. Measured 2026-10-20 on
+        # the same tool-calling request: 5.1 s at the default, 1.5 s at
+        # "none", both returning the right tool call. "none" keeps this the
+        # fast, non-reasoning economy model gpt-4o-mini was.
+        call_params=(("reasoning_effort", "none"),),
         priority=40,
         quality_class="low",
         speed_class="fast",
@@ -408,6 +428,12 @@ PROVIDER_CATALOG: dict[str, ProviderModel] = {
         # wins that tie EVERYWHERE EXCEPT capability="agent" — see below.
         # Everywhere else mistral-small remains the very next pick after it.
         capability_priority=(("agent", 35),),
+        # 2026-10-20: the tie below no longer exists. The gpt-4o-mini alias now
+        # carries gpt-6-luna at $0.10/$0.50, cheaper than this entry, so cost
+        # ranks it first for agent work too and this override only applies if
+        # the two are ever priced the same again. The measurement it rests on
+        # was against gpt-4o-mini, not luna; re-run the agent class of
+        # bench/MODEL_COMPARISON.md before reading it as a statement about luna.
         # Measured, not assumed. bench/MODEL_COMPARISON.md: on the agent
         # task class mistral-small scored 0.917 against gpt-4o-mini's 0.879
         # (both with the System Policy), the best agent-class result of any
@@ -646,4 +672,10 @@ RETIRED_MODEL_IDS: frozenset[str] = frozenset({
     # Documented as deprecated by Google and removed from the catalog before
     # either of the above — kept here so it cannot be reintroduced.
     "gemini/gemini-2.0-flash-lite",
+    # OpenAI shutdown 2027-01-14 (deprecations entry of 2026-10-14). Moved off
+    # on 2026-10-20, before the date, so they are listed ahead of the 404.
+    "gpt-4o",
+    "gpt-4o-mini",
+    "gpt-4.1",
+    "gpt-4.1-mini",
 })

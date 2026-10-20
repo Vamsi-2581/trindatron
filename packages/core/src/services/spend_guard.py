@@ -76,6 +76,10 @@ def provider_for_model(model: str) -> str:
             return cfg.provider
     if model.startswith("claude"):
         return "anthropic"
+    # Usage rows recorded before 2026-10-20 carry "gpt-4o-mini"/"gpt-4o", which
+    # the catalog no longer lists (the aliases now hold GPT-6 models).
+    if model.startswith("gpt-"):
+        return "openai"
     if "/" in model:
         return model.split("/", 1)[0]
     return "unknown" if not model else model

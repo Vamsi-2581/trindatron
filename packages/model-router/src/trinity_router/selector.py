@@ -6,10 +6,10 @@ Clients cannot influence which provider or model is selected.
 
 Economic tiers used in chain design:
   ULTRA_LOW  groq-llama4-scout     $0.075/$0.30 CHAT only (GPT-OSS 20B on Groq, 131K ctx)
-  LOW        gpt-4o-mini           $0.15/$0.60  CHAT + AGENT, 128K ctx
+  LOW        gpt-4o-mini           $0.10/$0.50  CHAT + AGENT (gpt-6-luna), 922K ctx
   LOW        gemini-25-flash-lite  $0.30/$2.50  CHAT + files, 1M ctx, tools OK
   STANDARD   claude-sonnet         $2.00/$10.00 AGENT primary, complex CHAT
-  STANDARD   gpt-4o                $2.50/$10.00 PRO fallback
+  STANDARD   gpt-4o                $2.00/$10.00 PRO fallback (gpt-6.1-sol)
   PREMIUM    claude-opus           $5.00/$25.00 MAX primary
 
 Routing principles:

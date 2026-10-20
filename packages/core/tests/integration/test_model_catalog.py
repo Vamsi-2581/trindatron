@@ -155,8 +155,8 @@ class TestCatalogIntegrity:
             "claude-opus": "claude-opus-4-7",
             "claude-sonnet": "claude-sonnet-5",
             "claude-haiku": "claude-haiku-4-5",
-            "gpt-4o": "gpt-4o",
-            "gpt-4o-mini": "gpt-4o-mini",
+            "gpt-4o": "gpt-6.1-sol",       # alias kept; gpt-4o retires 2027-01-14
+            "gpt-4o-mini": "gpt-6-luna",   # alias kept; gpt-4o-mini retires 2027-01-14
             # "gemini-25-flash" (gemini/gemini-3.6-flash) was removed from the
             # catalog on 2026-09-13 as unreachable by cost rank. Its expectation
             # is deleted rather than left here: the loop below skips aliases
@@ -337,8 +337,8 @@ class TestConfirmedPrices:
         ("claude-opus",      5.0,   25.0),
         ("claude-sonnet",    2.0,   10.0),
         ("claude-haiku",     1.0,    5.0),
-        ("gpt-4o",           2.5,   10.0),
-        ("gpt-4o-mini",      0.15,   0.60),
+        ("gpt-4o",           2.0,   10.0),   # gpt-6.1-sol
+        ("gpt-4o-mini",      0.10,   0.50),   # gpt-6-luna
         ("gemini-25-flash-lite", 0.30, 2.50),
         ("groq-llama4-scout", 0.075, 0.30),
         ("xai-grok", 1.25, 2.50),

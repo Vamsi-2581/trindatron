@@ -439,8 +439,11 @@ def test_the_standard_models_carry_the_catalog_prices():
     from bench.run_policy_benchmark import ALL_MODELS
     from trinity_router.providers import PROVIDER_CATALOG
 
+    # gpt-4o is not paired any more: the benchmark records the real gpt-4o it
+    # measured, while the catalog's gpt-4o alias holds gpt-6.1-sol since
+    # 2026-10-20 (OpenAI retires gpt-4o on 2027-01-14).
     for bench_key, catalog_key in (("xai-grok", "xai-grok"), ("claude-haiku", "claude-haiku"),
-                                   ("claude-sonnet-5", "claude-sonnet"), ("gpt-4o", "gpt-4o")):
+                                   ("claude-sonnet-5", "claude-sonnet")):
         spec, cfg = ALL_MODELS[bench_key], PROVIDER_CATALOG[catalog_key]
         assert (spec.usd_per_1m_input, spec.usd_per_1m_output) == (
             cfg.cost_per_1m_input_usd, cfg.cost_per_1m_output_usd)

@@ -215,8 +215,10 @@ def test_agent_routing_is_unchanged_by_this_work():
             tools=None,
         )
         chain = [k for k, _ in decision.chain]
-        assert chain[0] == "mistral-small", chain
-        assert chain[1] == "gpt-4o-mini", chain
+        # gpt-4o-mini leads since it carries gpt-6-luna, which is cheaper than
+        # mistral-small (2026-10-20); see test_agent_capability_priority.py.
+        assert chain[0] == "gpt-4o-mini", chain
+        assert chain[1] == "mistral-small", chain
 
 
 # -- 10. No content, no secrets in the observability ----------------------

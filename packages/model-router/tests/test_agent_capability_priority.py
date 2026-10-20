@@ -21,6 +21,16 @@ The two things these tests are actually guarding are consequently:
 
 Everything here runs against the real PROVIDER_CATALOG through the real
 ModelRouter chain builder. No model is called.
+
+2026-10-20: the tie is gone
+---------------------------
+OpenAI retires gpt-4o-mini on 2027-01-14, and the gpt-4o-mini alias now
+carries gpt-6-luna at $0.10/$0.50 — cheaper than mistral-small. Cost is the
+first sort key, so luna now leads agent work as well, and mistral-small's
+override is dormant until the two are priced the same again. Tests 1, 2 and
+the FREE test below assert that new order; everything else (the override
+stays scoped to the capability string, never beats cost, never changes chain
+length or membership) is unchanged and still guarded.
 """
 from __future__ import annotations
 
@@ -53,24 +63,24 @@ def _chain(router, *, capability, task_type=TaskType.AGENT, plan="pro", text="hi
 # -- 1. The change itself -------------------------------------------------
 
 @pytest.mark.parametrize("plan", LOW_FLOOR_PLANS)
-def test_agent_capability_at_low_floor_picks_mistral_small_first(plan):
+def test_agent_capability_at_low_floor_picks_the_cheaper_luna_first(plan):
     chain, decision = _chain(ModelRouter(), capability="agent", plan=plan)
-    assert chain[0] == "mistral-small", (
-        f"plan={plan}: expected mistral-small to lead the agent chain, got {chain}"
+    assert chain[0] == "gpt-4o-mini", (
+        f"plan={plan}: expected gpt-4o-mini (gpt-6-luna) to lead the agent chain, got {chain}"
     )
     assert decision.selection_reason == "dynamic_eligible"
 
 
-# -- 2. gpt-4o-mini is demoted, NOT removed -------------------------------
+# -- 2. mistral-small is demoted, NOT removed -----------------------------
 
-def test_gpt_4o_mini_remains_the_immediate_fallback_for_agent():
-    """A tiebreak reorders; it must not drop a candidate. If mistral-small
-    is unavailable the request has to land on the equally-priced model that
-    used to be primary, not skip to something more expensive."""
+def test_mistral_small_remains_the_immediate_fallback_for_agent():
+    """A cheaper model reorders the chain; it must not drop a candidate. If
+    luna is unavailable the request has to land on mistral-small, the next
+    cheapest, not skip to something more expensive."""
     chain, _ = _chain(ModelRouter(), capability="agent", plan="pro")
-    assert "gpt-4o-mini" in chain, f"gpt-4o-mini fell out of the chain: {chain}"
-    assert chain.index("gpt-4o-mini") == chain.index("mistral-small") + 1, (
-        f"gpt-4o-mini should sit immediately behind mistral-small, got {chain}"
+    assert "mistral-small" in chain, f"mistral-small fell out of the chain: {chain}"
+    assert chain.index("mistral-small") == chain.index("gpt-4o-mini") + 1, (
+        f"mistral-small should sit immediately behind gpt-4o-mini, got {chain}"
     )
 
 
@@ -193,7 +203,7 @@ def test_free_plan_agent_chain_is_a_single_model_before_and_after():
     this change swaps WHICH model occupies the slot and must not be read as
     having removed a fallback that never existed."""
     chain, _ = _chain(ModelRouter(), capability="agent", plan="free")
-    assert chain == ["mistral-small"]
+    assert chain == ["gpt-4o-mini"]
     assert get_plan_limits("free").max_failover_attempts == 0
 
 
