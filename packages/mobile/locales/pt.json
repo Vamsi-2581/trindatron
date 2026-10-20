@@ -1,0 +1,8 @@
+{
+  "ios": {
+    "CFBundleDisplayName": "TRINDATRON",
+    "NSCameraUsageDescription": "O TRINDATRON usa a câmera apenas quando você decide fotografar algo para enviar.",
+    "NSPhotoLibraryUsageDescription": "O TRINDATRON acessa sua galeria apenas para enviar as imagens que você escolher.",
+    "NSMicrophoneUsageDescription": "O TRINDATRON usa o microfone apenas enquanto você grava uma mensagem de voz."
+  }
+}

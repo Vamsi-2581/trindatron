@@ -69,7 +69,7 @@ TRINDATRON flips that around:
 | 🎙️ **Voice** | Read-aloud (TTS) and voice input (STT) |
 | 📄 **Files** | Reads PDFs and attachments |
 | 👥 **Accounts & teams** | Email/password and Google sign-in, sessions, account recovery, team seats, admin metrics |
-| 🖥️ **Everywhere** | Web app (Next.js) and desktop app (Electron). A mobile app is on the way |
+| 🖥️ **Everywhere** | Web app (Next.js), desktop app (Electron) and mobile app (Expo: Android, iPhone, iPad) |
 
 ## 🧠 How it works
 
@@ -93,6 +93,7 @@ flowchart LR
     subgraph Clients
         W["Web<br/>Next.js · packages/web"]
         D["Desktop<br/>Electron · packages/desktop"]
+        M["Mobile<br/>Expo · packages/mobile"]
     end
 
     subgraph Core["TRINITY CORE · FastAPI · packages/core"]
@@ -111,6 +112,7 @@ flowchart LR
 
     W -- "HTTP + SSE" --> API
     D -- "HTTP + SSE" --> API
+    M -- "HTTP + SSE" --> API
     API --> CAP --> R
     API --> EXE
     EXE --> R
@@ -129,10 +131,11 @@ flowchart LR
 | [`packages/agent`](packages/agent) | Python · Playwright | Agentic browser / computer-use layer with a permission manifest |
 | [`packages/web`](packages/web) | TypeScript · Next.js 15 · Tailwind | Web interface in pt / en / es |
 | [`packages/desktop`](packages/desktop) | TypeScript · Electron | Desktop app |
+| [`packages/mobile`](packages/mobile) | TypeScript · Expo SDK 57 · React Native | Mobile app for Android, iPhone, iPad (and Web) |
 | [`infra/`](infra) | Modal · Presenton | Optional workers for video and presentations |
 
-Built to be trusted: **5,400+ automated tests** (backend, router, agent and
-web), security tests for auth, object-level authorization and SSRF, and a
+Built to be trusted: **5,400+ automated tests** (backend, router, agent, web
+and mobile), security tests for auth, object-level authorization and SSRF, and a
 PostgreSQL concurrency suite in CI.
 
 Go deeper: [execution runtime](docs/EXECUTION_RUNTIME.md) ·
@@ -140,6 +143,7 @@ Go deeper: [execution runtime](docs/EXECUTION_RUNTIME.md) ·
 [media engines](docs/MEDIA_ENGINES.md) ·
 [free compute pool](docs/FREE_COMPUTE_POOL.md) ·
 [local AI lab](docs/LOCAL_AI_LAB.md) ·
+[mobile app](docs/MOBILE.md) (pt-BR) ·
 [architecture decisions](docs/architecture/decisions)
 
 ---
@@ -194,6 +198,17 @@ Open <http://localhost:3000>, create an account and start chatting. 🎉
 The web app talks to `http://localhost:8000` by default (override it with
 `NEXT_PUBLIC_API_URL` in `packages/web/.env.local`).
 
+### 3. Mobile app (optional)
+
+The mobile app is a standalone npm project:
+
+```bash
+cd packages/mobile
+npm install
+cp .env.example .env          # EXPO_PUBLIC_API_URL (Android emulator: http://10.0.2.2:8000)
+npm run web                   # or: npm run android / npm run ios
+```
+
 ### Run the tests
 
 ```bash
@@ -201,6 +216,7 @@ cd packages/core && uv run pytest -q              # backend (SQLite)
 cd packages/model-router && uv run pytest -q      # router
 cd packages/agent && uv run pytest -q             # agent
 cd packages/web && npm run typecheck && npm test  # web
+cd packages/mobile && npm run typecheck && npm test  # mobile
 ```
 
 Tests that need PostgreSQL are skipped unless `TEST_POSTGRES_URL` is set. CI
@@ -220,7 +236,7 @@ and `ALLOWED_ORIGINS` has no localhost entries.
 
 ## 🗺️ Roadmap
 
-- [ ] 📱 Mobile app (Expo / React Native), already in development
+- [x] 📱 Mobile app (Expo / React Native)
 - [ ] 📄 Documents: reports and contracts as PDF / DOCX
 - [ ] 🐳 One-command `docker compose up`
 - [ ] 🌎 English translations of code comments and docs

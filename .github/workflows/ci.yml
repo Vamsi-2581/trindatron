@@ -142,3 +142,33 @@ jobs:
       - name: vitest
         working-directory: packages/web
         run: npx vitest run
+
+  # ---------------------------------------------------------------------
+  # Mobile — a standalone npm project with its own lockfile.
+  # ---------------------------------------------------------------------
+  mobile:
+    name: Mobile typecheck + unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    defaults:
+      run:
+        working-directory: packages/mobile
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: packages/mobile/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: tsc --noEmit
+        run: npx tsc --noEmit
+
+      - name: jest
+        run: npx jest --ci

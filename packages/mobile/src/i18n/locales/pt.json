@@ -1,0 +1,930 @@
+{
+  "activity": {
+    "chat": {
+      "processing": "Processando"
+    },
+    "research": {
+      "searching": "Pesquisando informações"
+    },
+    "code": {
+      "analyzing": "Analisando código",
+      "planning": "Planejando implementação",
+      "limit_reached": "Limite de iterações atingido"
+    },
+    "work": {
+      "preparing": "Preparando tarefa",
+      "researching": "Pesquisando informações",
+      "creating": "Criando documento",
+      "approval_required": "Aguardando aprovação",
+      "approved": "Ação aprovada",
+      "rejected": "Ação rejeitada"
+    },
+    "image": {
+      "preparing": "Preparando geração de imagem"
+    },
+    "video": {
+      "preparing": "Preparando geração de vídeo"
+    },
+    "audio": {
+      "preparing": "Preparando áudio"
+    },
+    "files": {
+      "accessing": "Acessando arquivos"
+    },
+    "automation": {
+      "configuring": "Configurando automação"
+    },
+    "agent": {
+      "starting": "Iniciando agente"
+    },
+    "tool": {
+      "read_file": "Lendo arquivo",
+      "write_file": "Salvando arquivo",
+      "list_directory": "Listando diretório",
+      "execute_shell": "Executando comando",
+      "web_search": "Pesquisando na web",
+      "browser_navigate": "Navegando na web",
+      "browser_get_text": "Lendo página",
+      "browse_url": "Acessando URL",
+      "create_document": "Criando documento",
+      "send_notification": "Aguardando aprovação",
+      "generic": "Executando ação"
+    }
+  },
+  "error": {
+    "network": {
+      "connection_failed": "Não foi possível conectar ao TRINDATRON (verifique se o servidor está rodando)"
+    },
+    "auth": {
+      "invalid_credentials": "Email ou senha inválidos",
+      "unauthenticated": "Não autenticado"
+    },
+    "session": {
+      "not_found": "Conversa não encontrada",
+      "create_failed": "Falha ao criar conversa",
+      "list_failed": "Falha ao carregar conversas"
+    },
+    "usage": {
+      "load_failed": "Falha ao carregar uso",
+      "limit_exceeded": "Limite de uso atingido. Tente novamente mais tarde."
+    },
+    "generic": "Ocorreu um erro",
+    "code": {
+      "budget_exhausted": "Não há capacidade suficiente na sua janela de uso atual. Tente depois que ela renovar.",
+      "plan_not_included": "Seu plano atual não inclui este recurso.",
+      "media_unavailable": "Criar isso não está disponível agora. Tente mais tarde.",
+      "job_in_progress": "Já há uma criação em andamento. Aguarde ela terminar.",
+      "too_large": "O arquivo é maior do que o limite permitido.",
+      "too_many": "Esta conversa já tem o máximo de arquivos anexados.",
+      "unavailable": "Anexar arquivos não está disponível agora.",
+      "already_in_team": "Esta conta já faz parte de um team.",
+      "team_not_active": "Os assentos do team ainda não estão ativos.",
+      "no_seat_available": "Não há assento livre deste tipo.",
+      "individual_plan_active": "Encerre seu plano atual antes de entrar em um team.",
+      "seats_in_use": "Há mais assentos deste tipo em uso do que o solicitado.",
+      "invite_expired": "Este convite expirou.",
+      "owner_cannot_leave": "O assento do dono não pode ser removido.",
+      "invalid_seats": "Um team tem de 2 a 150 assentos.",
+      "invalid": "Este arquivo não pode ser anexado.",
+      "voice_request_too_large": "Este conteúdo é longo demais para uma leitura ou transcrição no seu plano."
+    },
+    "api": {
+      "unauthorized": "Sua sessão terminou. Entre novamente.",
+      "forbidden": "Seu plano atual não inclui este recurso.",
+      "not_found": "Não encontramos o que você procurava.",
+      "conflict": "Esta ação conflita com outra em andamento. Tente de novo em instantes.",
+      "validation": "Confira os dados informados.",
+      "payload_too_large": "O arquivo é maior do que o limite permitido.",
+      "unsupported_media": "Formato de arquivo não suportado.",
+      "quota_exceeded": "Você atingiu o limite de uso do seu plano.",
+      "quota_exceeded_until": "Você atingiu o limite de uso do seu plano. Seu acesso renova {when}.",
+      "rate_limited": "Muitas tentativas. Aguarde um pouco e tente novamente.",
+      "dependency_unavailable": "Este recurso está temporariamente indisponível.",
+      "server": "O TRINDATRON encontrou um erro. Tente novamente.",
+      "network": "Não foi possível conectar ao TRINDATRON. Verifique sua conexão e tente novamente.",
+      "timeout": "O TRINDATRON não respondeu a tempo. Verifique sua conexão e tente novamente.",
+      "aborted": "Operação cancelada.",
+      "config": "O aplicativo não está configurado com o endereço do TRINDATRON."
+    },
+    "core": {
+      "password_too_short": "A senha precisa ter pelo menos 8 caracteres.",
+      "too_many_logins": "Muitas tentativas de login. Aguarde um pouco e tente novamente.",
+      "too_many_signups": "Muitas contas criadas a partir desta rede. Tente novamente mais tarde."
+    }
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "retry": "Tentar novamente",
+    "loading": "Carregando…",
+    "save": "Salvar",
+    "edit": "Editar",
+    "delete": "Apagar",
+    "back": "Voltar",
+    "seeAll": "Ver tudo",
+    "details": "Detalhes",
+    "unlimited": "Ilimitado",
+    "contactSupport": "Falar com o suporte",
+    "close": "Fechar"
+  },
+  "languages": {
+    "pt": "Português",
+    "en": "English",
+    "es": "Español"
+  },
+  "dates": {
+    "justNow": "agora",
+    "minutesAgo": "há {count} min",
+    "hoursAgo": "há {count} h",
+    "yesterday": "ontem",
+    "daysAgo": "há {count} dias",
+    "inMoments": "em instantes",
+    "inMinutes": "em {count} min",
+    "inHours": "em {count} h",
+    "inOneDay": "em 1 dia",
+    "inDays": "em {count} dias"
+  },
+  "boot": {
+    "opening": "Abrindo o TRINDATRON…"
+  },
+  "config": {
+    "missingTitle": "Endereço do TRINDATRON não configurado",
+    "missingBody": "Esta versão do aplicativo foi gerada sem o endereço do servidor."
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "body": "Este endereço não existe no TRINDATRON.",
+    "home": "Ir para o início"
+  },
+  "nav": {
+    "tools": "Ferramentas",
+    "home": "Início",
+    "chats": "Conversas",
+    "projects": "Projetos",
+    "files": "Arquivos",
+    "profile": "Perfil",
+    "project": "Projeto",
+    "agents": "Agentes",
+    "job": "Execução",
+    "usage": "Uso do plano",
+    "plans": "Planos",
+    "billing": "Cobrança",
+    "account": "Conta",
+    "team": "Team",
+    "support": "Suporte",
+    "ticket": "Chamado",
+    "scheduled": "Agendados",
+    "computerUse": "Usar o computador",
+    "settings": "Configurações",
+    "devices": "Dispositivos",
+    "memories": "Memórias",
+    "privacy": "Privacidade"
+  },
+  "states": {
+    "offline": "Sem conexão. Mostrando o que já estava salvo; as ações voltam quando a rede voltar."
+  },
+  "a11y": {
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Ocultar senha"
+  },
+  "auth": {
+    "email": "E-mail",
+    "password": "Senha",
+    "name": "Nome",
+    "or": "ou",
+    "sessionExpired": "Sua sessão terminou. Entre novamente.",
+    "login": {
+      "title": "Entrar",
+      "subtitle": "Continue de onde parou.",
+      "submit": "Entrar",
+      "missingFields": "Informe seu e-mail e sua senha.",
+      "invalidCredentials": "E-mail ou senha incorretos.",
+      "forgot": "Esqueci minha senha",
+      "createAccount": "Criar conta"
+    },
+    "register": {
+      "title": "Criar conta",
+      "subtitle": "Leva menos de um minuto.",
+      "submit": "Criar conta",
+      "missingFields": "Informe seu e-mail e uma senha.",
+      "passwordHint": "Use pelo menos 8 caracteres.",
+      "emailTaken": "Já existe uma conta com este e-mail.",
+      "haveAccount": "Já tenho conta"
+    },
+    "forgot": {
+      "title": "Recuperar acesso",
+      "body": "A redefinição de senha pelo aplicativo ainda não está disponível. Fale com o suporte para recuperar o acesso à sua conta.",
+      "emailSubject": "Recuperar acesso ao TRINDATRON",
+      "back": "Voltar para entrar"
+    },
+    "google": {
+      "continue": "Continuar com Google",
+      "failed": "Não foi possível entrar com Google. Tente novamente."
+    }
+  },
+  "home": {
+    "suggestion": {
+      "write": "Escrever um texto",
+      "explain": "Explicar um assunto",
+      "image": "Criar uma imagem",
+      "video": "Criar um vídeo",
+      "agent": "Delegar uma tarefa",
+      "document": "Analisar um documento"
+    },
+    "prompt": {
+      "write": "Escreva um texto sobre ",
+      "explain": "Explique de forma simples: ",
+      "agent": "Aja como agente: ",
+      "document": "Analise o documento que vou anexar e "
+    },
+    "greeting": "Olá, {name}.",
+    "greetingAnonymous": "Olá.",
+    "subtitle": "O que vamos fazer agora?",
+    "recent": "Recentes",
+    "noRecent": "Nenhuma conversa ainda. Comece pelo campo acima.",
+    "newProject": "Novo projeto",
+    "projectA11y": "Projeto {name}",
+    "account": "Sua conta",
+    "plan": "Plano {plan}",
+    "available": "{percent} disponível",
+    "periodUsage": "Uso do período atual",
+    "weekResets": "Semana reinicia {day}, {time}",
+    "shortcuts": "Atalhos",
+    "agentsSubtitle": "Acompanhe e comande seus agentes",
+    "plans": "Planos",
+    "profileA11y": "Abrir perfil",
+    "planLine": "Plano {plan} · {percent} disponível"
+  },
+  "start": {
+    "placeholder": "Pergunte, peça ou delegue uma tarefa…",
+    "cta": "Conversar",
+    "projectPlaceholder": "Converse sobre {name}…",
+    "projectCta": "Conversar no projeto"
+  },
+  "chat": {
+    "menu": "Ações da conversa",
+    "deleteConversation": "Apagar conversa",
+    "untitled": "Nova conversa",
+    "today": "Hoje",
+    "yesterday": "Ontem",
+    "loading": "Carregando conversa…",
+    "loadFailed": "Não foi possível abrir a conversa.",
+    "empty": "Como posso ajudar?",
+    "thinking": "Pensando…",
+    "replying": "O TRINDATRON está respondendo",
+    "stopped": "Resposta interrompida.",
+    "incomplete": "Resposta incompleta.",
+    "interrupted": "A conexão caiu antes de a resposta terminar.",
+    "copy": "Copiar resposta",
+    "copied": "Resposta copiada",
+    "actionsOne": "1 ação executada",
+    "actionsMany": "{count} ações executadas",
+    "approvalTitle": "O TRINDATRON precisa da sua aprovação",
+    "approve": "Aprovar",
+    "reject": "Rejeitar",
+    "dismiss": "Fechar aviso",
+    "seePlans": "Ver uso e planos",
+    "placeholder": "Escreva o que precisa fazer…",
+    "inputA11y": "Mensagem para o TRINDATRON",
+    "send": "Enviar mensagem",
+    "recording": "Gravando {duration} — toque em parar para transcrever",
+    "recordStart": "Gravar mensagem de voz",
+    "recordStop": "Parar gravação",
+    "transcribing": "Transcrevendo áudio",
+    "recordCancel": "Descartar gravação",
+    "recordingHint": "Gravando…",
+    "jumpToLatest": "Ir para a mensagem mais recente",
+    "listen": "Ouvir",
+    "listening": "Parar",
+    "preparingAudio": "Preparando áudio",
+    "listenFailed": "Não foi possível ler esta resposta agora.",
+    "truncated": "A resposta parou no limite de tamanho do seu plano.",
+    "continue": "Continuar",
+    "continuePrompt": "Continue de onde parou.",
+    "readShortened": "Lido só o início: o restante passa do limite de uma leitura no seu plano."
+  },
+  "markdown": {
+    "code": "código",
+    "copyCode": "Copiar código",
+    "codeCopied": "Código copiado",
+    "image": "[imagem]",
+    "imageWithAlt": "[imagem: {alt}]"
+  },
+  "voice": {
+    "permissionDenied": "Permita o acesso ao microfone nas configurações do aparelho para gravar.",
+    "startFailed": "Não foi possível iniciar a gravação.",
+    "empty": "A gravação ficou vazia.",
+    "notUnderstood": "Não consegui entender o áudio. Tente de novo."
+  },
+  "chats": {
+    "actions": "Ações da conversa {title}",
+    "groups": {
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "week": "Últimos 7 dias",
+      "older": "Anteriores"
+    },
+    "new": "Nova conversa",
+    "emptyTitle": "Nenhuma conversa ainda",
+    "emptyBody": "Suas conversas com o TRINDATRON aparecem aqui.",
+    "openHint": "Abre a conversa",
+    "deleteA11y": "Apagar conversa {title}",
+    "deleteTitle": "Apagar conversa?",
+    "deleteMessage": "“{title}” será apagada.",
+    "search": "Buscar conversas",
+    "noResults": "Nenhuma conversa encontrada."
+  },
+  "projects": {
+    "new": "Novo projeto",
+    "name": "Nome",
+    "description": "Descrição (opcional)",
+    "create": "Criar projeto",
+    "yours": "Seus projetos",
+    "emptyTitle": "Nenhum projeto ainda",
+    "emptyBody": "Projetos reúnem as conversas, as instruções e os arquivos de um mesmo trabalho.",
+    "filesOne": "1 arquivo",
+    "filesMany": "{count} arquivos"
+  },
+  "project": {
+    "conversations": "Conversas do projeto",
+    "noConversations": "Nenhuma conversa neste projeto ainda.",
+    "instructions": "Instruções",
+    "instructionsLabel": "Como o TRINDATRON deve trabalhar neste projeto",
+    "noInstructions": "Sem instruções. Elas valem para todas as conversas deste projeto.",
+    "files": "Arquivos do projeto",
+    "noFiles": "Nenhum arquivo neste projeto.",
+    "archive": "Arquivar projeto",
+    "archiveTitle": "Arquivar projeto?",
+    "archiveMessage": "“{name}” deixará de aparecer na sua lista.",
+    "notFound": "Projeto não encontrado."
+  },
+  "files": {
+    "search": "Buscar arquivos",
+    "kind": {
+      "all": "Todos",
+      "images": "Imagens",
+      "documents": "Documentos"
+    },
+    "allProjects": "Todos os projetos",
+    "library": "Sua biblioteca",
+    "upload": "Enviar arquivo",
+    "destination": "Salvar em",
+    "destinationA11y": "Salvar em {name}",
+    "limit": "Até 10 MB por arquivo.",
+    "emptyTitle": "Nenhum arquivo ainda",
+    "emptyBody": "Use a câmera, a galeria ou um documento para enviar o primeiro.",
+    "noResults": "Nenhum arquivo encontrado.",
+    "needProjectTitle": "Crie um projeto para enviar arquivos",
+    "needProjectBody": "Cada arquivo é guardado junto do projeto em que você vai usá-lo.",
+    "goToProjects": "Ir para projetos",
+    "inProject": "em {name}",
+    "openHint": "Abre o projeto deste arquivo",
+    "deleteTitle": "Apagar arquivo?",
+    "deleteA11y": "Apagar {name}",
+    "project": "Projeto: {name}",
+    "chooseProject": "Filtrar por projeto"
+  },
+  "upload": {
+    "camera": "Câmera",
+    "gallery": "Galeria",
+    "document": "Documento",
+    "pickerFailed": "Não foi possível abrir o seletor de arquivos.",
+    "cameraDenied": "Permita o acesso à câmera nas configurações do aparelho.",
+    "uploadingA11y": "Enviando {name}",
+    "progress": "Enviando… {percent}%",
+    "cancelA11y": "Cancelar envio de {name}",
+    "retryA11y": "Tentar enviar {name} de novo",
+    "dismissA11y": "Descartar {name}",
+    "imageName": "imagem"
+  },
+  "agents": {
+    "intro": "Seus agentes trabalham no TRINDATRON, não neste aparelho. Aqui você acompanha e comanda.",
+    "emptyTitle": "Nenhum agente ainda",
+    "emptyBody": "Os agentes são criados no TRINDATRON Web. Quando houver um, ele aparece aqui para você conversar, acompanhar e comandar.",
+    "definitions": "Agentes",
+    "noDefinitions": "Nenhum agente criado ainda. Os agentes são criados no TRINDATRON Web.",
+    "chat": "Conversar",
+    "persistent": "Agentes persistentes",
+    "noPersistent": "Nenhum agente persistente em execução.",
+    "lastRun": "Última execução {when}",
+    "neverRan": "Ainda não executou",
+    "current": "agora: {status}",
+    "pause": "Pausar",
+    "resume": "Retomar",
+    "runNow": "Executar agora",
+    "recentRuns": "Execuções recentes",
+    "noRuns": "Nenhuma execução ainda.",
+    "task": "Tarefa",
+    "jobStatus": {
+      "created": "Criada",
+      "queued": "Na fila",
+      "starting": "Iniciando",
+      "running": "Executando",
+      "waiting": "Aguardando",
+      "completed": "Concluída",
+      "failed": "Falhou",
+      "cancelled": "Cancelada",
+      "expired": "Expirada",
+      "cleanup": "Finalizando",
+      "destroyed": "Encerrada"
+    },
+    "instanceStatus": {
+      "active": "Ativo",
+      "paused": "Pausado",
+      "disabled": "Desativado",
+      "error": "Com erro"
+    },
+    "instanceError": "O agente encontrou um problema na última execução."
+  },
+  "job": {
+    "autoRefresh": "Atualizando automaticamente…",
+    "created": "Criada",
+    "started": "Iniciada",
+    "completed": "Concluída",
+    "attempt": "Tentativa",
+    "attemptValue": "{current} de {total}",
+    "result": "Resultado",
+    "failed": "A tarefa não foi concluída.",
+    "artifacts": "Artefatos",
+    "artifactsUnavailable": "O download de artefatos ainda não está disponível no aplicativo.",
+    "cancel": "Cancelar execução",
+    "cancelTitle": "Cancelar execução?",
+    "cancelMessage": "O TRINDATRON vai interromper esta tarefa.",
+    "notFound": "Execução não encontrada."
+  },
+  "usage": {
+    "currentPlan": "Plano atual",
+    "seePlans": "Ver planos",
+    "session": "Sessão atual",
+    "resetsAt": "Redefine às {time}",
+    "resetsOn": "Redefine {day}, {time}",
+    "used": "{percent} usado",
+    "remaining": "{percent} restante",
+    "noSession": "Nenhuma sessão ativa. Ela começa na sua próxima tarefa.",
+    "week": "Esta semana",
+    "weekResets": "Reinicia {day}, {time}",
+    "sessionBar": "Uso da sessão atual",
+    "weekBar": "Uso desta semana",
+    "capacityNow": "Capacidade disponível agora: {percent}",
+    "optimizing": "O TRINDATRON está otimizando o uso para você continuar trabalhando.",
+    "agentsOne": "1 agente persistente ativo",
+    "agentsMany": "{count} agentes persistentes ativos",
+    "included": "Incluído no seu plano",
+    "notIncluded": "Não incluído no seu plano",
+    "feature": {
+      "agentMode": "Modo agente",
+      "code": "Desenvolvimento",
+      "work": "Execução autônoma",
+      "image": "Geração de imagens",
+      "persistentAgents": "Agentes persistentes"
+    },
+    "featureIncluded": "{feature}: incluído",
+    "featureNotIncluded": "{feature}: não incluído",
+    "projects": "Projetos",
+    "concurrentAgents": "Agentes simultâneos",
+    "loadFailed": "Não foi possível carregar o uso.",
+    "media": {
+      "title": "Criações",
+      "imagesToday": "Imagens disponíveis hoje",
+      "videosToday": "Vídeos disponíveis hoje",
+      "remainingOf": "{remaining} de {limit}"
+    }
+  },
+  "billing": {
+    "currentPlan": "Plano atual",
+    "plans": "Planos",
+    "perMonth": "{price} por mês",
+    "current": "Atual",
+    "subscribe": "Assinar",
+    "request": "Solicitar",
+    "iosUnavailable": "Mudanças de plano não estão disponíveis no aplicativo para iOS.",
+    "onlineUnavailable": "O pagamento online ainda não está disponível. Ao escolher um plano, enviamos sua solicitação para a equipe.",
+    "activated": "Plano {plan} ativado.",
+    "notCompleted": "O pagamento não foi concluído. Tente novamente.",
+    "processing": "Pagamento em processamento. Seu plano muda assim que o TRINDATRON confirmar.",
+    "history": "Histórico de pagamentos",
+    "noHistory": "Nenhum pagamento registrado.",
+    "credits": "Créditos",
+    "subscription": "Assinatura",
+    "upgradeSubject": "Upgrade para o plano {plan}",
+    "upgradeBody": "Olá! Tenho interesse no plano {plan}.\n\nMeu e-mail: {email}\n",
+    "subscriptionSubject": "Assinatura TRINDATRON",
+    "orderStatus": {
+      "pending": "Pendente",
+      "processing": "Processando",
+      "confirmed": "Confirmado",
+      "cancelled": "Cancelado",
+      "failed": "Falhou",
+      "expired": "Expirado",
+      "refunded": "Reembolsado",
+      "partial_refund": "Reembolso parcial"
+    },
+    "seePlans": "Ver planos",
+    "noSubscription": "Nenhuma assinatura recorrente.",
+    "nextBilling": "próxima cobrança em {date}",
+    "periodEnds": "período até {date}",
+    "cancel": "Cancelar assinatura",
+    "cancelTitle": "Cancelar assinatura?",
+    "cancelMessage": "A assinatura do plano {plan} deixa de ser cobrada.",
+    "cancelled": "Assinatura cancelada.",
+    "subscriptionStatus": {
+      "active": "Ativa",
+      "past_due": "Pagamento pendente",
+      "grace_period": "Em carência",
+      "cancelled": "Cancelada",
+      "expired": "Expirada"
+    },
+    "paymentMethod": {
+      "pix": "Pix",
+      "credit_card": "Cartão de crédito",
+      "debit_card": "Cartão de débito",
+      "boleto": "Boleto",
+      "bank_transfer": "Transferência bancária",
+      "wallet": "Carteira digital",
+      "crypto": "Cripto"
+    }
+  },
+  "profile": {
+    "accountFallback": "Sua conta",
+    "account": "Conta",
+    "work": "Trabalho",
+    "app": "Aplicativo",
+    "version": "Versão",
+    "devServer": "Servidor (desenvolvimento)",
+    "language": "Idioma",
+    "languageAuto": "Automático",
+    "languageAutoDetail": "Automático · {language}",
+    "signOut": "Sair",
+    "signOutTitle": "Sair do TRINDATRON?",
+    "signOutMessage": "Sua sessão será encerrada neste aparelho.",
+    "signOutNote": "Sair encerra a sessão apenas neste aparelho.",
+    "preferences": "Preferências",
+    "help": "Ajuda"
+  },
+  "drawer": {
+    "open": "Abrir menu",
+    "close": "Fechar menu"
+  },
+  "composer": {
+    "sectionCreate": "Criar",
+    "add": "Adicionar",
+    "savesTo": "Salva em {name}",
+    "savedIn": "{name} · salvo em {project}",
+    "needProject": "Crie um projeto para guardar imagens e documentos.",
+    "create": {
+      "image": "Criar imagem",
+      "editImage": "Editar imagem",
+      "video": "Criar vídeo",
+      "imageToVideo": "Imagem em vídeo",
+      "avatar": "Criar avatar"
+    },
+    "prompt": {
+      "image": "Crie uma imagem de ",
+      "editImage": "Edite a imagem para ",
+      "video": "Crie um vídeo de ",
+      "imageToVideo": "Transforme a imagem em um vídeo de ",
+      "avatar": "Crie um avatar que "
+    },
+    "attachHere": "Anexa a esta conversa",
+    "notRead": "{name} (conteúdo não lido)",
+    "removeAttachmentA11y": "Remover {name}"
+  },
+  "tips": {
+    "label": {
+      "didYouKnow": "Você sabia?",
+      "tip": "Dica",
+      "try": "Experimente",
+      "create": "Crie"
+    },
+    "outcome": "Descreva o resultado que você quer, não só a pergunta — por exemplo, “um plano em 5 passos”.",
+    "voice": "Toque no microfone e fale. O TRINDATRON transcreve para você.",
+    "projectInstructions": "Crie um projeto com instruções: todas as conversas dele seguem o mesmo contexto.",
+    "agentTasks": "O TRINDATRON executa tarefas em etapas: pesquisa na web, compara e entrega o resultado.",
+    "agentUpgrade": "Nos planos pagos, o TRINDATRON pesquisa na web e executa tarefas em etapas por você.",
+    "persistentAgents": "Agentes persistentes seguem trabalhando enquanto você faz outra coisa.",
+    "presentations": "Peça uma apresentação e o TRINDATRON monta os slides para você.",
+    "presentationsUpgrade": "Nos planos pagos, peça uma apresentação e receba os slides prontos.",
+    "imageCreate": "Transforme uma ideia em imagem direto na conversa.",
+    "videoCreate": "Transforme uma ideia em vídeo direto na conversa.",
+    "imageAnalyze": "Envie uma imagem e peça para analisar, explicar ou transformar o conteúdo.",
+    "documentSummary": "Envie um documento e peça um resumo, uma análise ou um plano de ação.",
+    "seePlans": "Ver planos",
+    "openProjects": "Abrir projetos",
+    "openAgents": "Ver agentes"
+  },
+  "media": {
+    "kind": {
+      "image": "Imagem",
+      "video": "Vídeo",
+      "avatar": "Avatar"
+    },
+    "status": {
+      "queued": "Na fila",
+      "running": "Criando…",
+      "completed": "Pronto",
+      "failed": "Não foi possível criar"
+    },
+    "open": "Abrir",
+    "download": "Baixar",
+    "share": "Compartilhar",
+    "another": "Criar outra",
+    "saved": "Arquivo salvo.",
+    "actionFailed": "Não foi possível concluir agora. Tente de novo.",
+    "viewerTitle": "Criação",
+    "notReady": "Esta criação ainda não está pronta.",
+    "delete": "Apagar criação",
+    "failedNote": "Algo deu errado ao criar. Tente de novo em instantes.",
+    "seconds": "{count} s"
+  },
+  "create": {
+    "imagePlaceholder": "Descreva a imagem: assunto, estilo, luz, cores…",
+    "videoPlaceholder": "Descreva o vídeo: cena, movimento, clima…",
+    "promptA11y": "Descrição da criação",
+    "format": "Formato (opcional)",
+    "imageFormatPlaceholder": "Ex.: 1080x1920, 9:16, Instagram Story, banner",
+    "videoFormatPlaceholder": "Ex.: vertical, 16:9, 1920x1080, Reels",
+    "formatHint": "Escreva do seu jeito. Se o tamanho exato não for possível, uso o mais próximo.",
+    "submit": "Criar",
+    "imageWait": "Sua imagem fica pronta em instantes.",
+    "videoWait": "Vídeos levam alguns minutos. Pode sair desta tela: o resultado fica em Criações.",
+    "another": "Criar outra",
+    "unavailableTitle": "Criação indisponível",
+    "planBody": "Isto não está incluído no seu plano.",
+    "unavailableBody": "Isto está temporariamente fora do ar. Tente de novo em instantes.",
+    "notYetBody": "Isto ainda não existe no TRINDATRON."
+  },
+  "creations": {
+    "create": "Criar",
+    "title": "Criações",
+    "filter": {
+      "all": "Tudo",
+      "image": "Imagens",
+      "video": "Vídeos"
+    },
+    "emptyTitle": "Nenhuma criação ainda",
+    "emptyBody": "As imagens e vídeos que você criar aparecem aqui.",
+    "more": "Carregar mais",
+    "deleteTitle": "Apagar esta criação?",
+    "deleteMessage": "O arquivo será removido de todos os seus aparelhos."
+  },
+  "support": {
+    "heroTitle": "Como podemos ajudar?",
+    "openPlans": "Ver planos e preços",
+    "openBilling": "Abrir cobrança e assinatura",
+    "browse": "Categorias",
+    "results": "Resultados",
+    "askHint": "O assistente da ajuda pode responder a partir do que você escreveu.",
+    "contact": "Falar com o suporte",
+    "talkToSupport": "Abrir um chamado",
+    "talkToSupportHint": "A equipe TRINDATRON responde por aqui.",
+    "filter": {
+      "all": "Tudo"
+    },
+    "askTitle": "Pergunte à ajuda",
+    "askLabel": "Sua dúvida",
+    "askSubmit": "Perguntar",
+    "suggestTicket": "Abrir um chamado",
+    "articles": "Artigos de ajuda",
+    "searchLabel": "Buscar na ajuda",
+    "searchPlaceholder": "Ex.: cobrança, anexos, planos",
+    "noArticles": "Nenhum artigo encontrado.",
+    "tickets": "Meus chamados",
+    "newTicket": "Novo chamado",
+    "noTickets": "Nenhum chamado aberto.",
+    "category": "Categoria",
+    "subject": "Assunto",
+    "description": "Descreva o que aconteceu",
+    "submit": "Enviar chamado",
+    "teamAuthor": "Equipe TRINDATRON",
+    "you": "Você",
+    "replyLabel": "Responder",
+    "resolve": "Marcar como resolvido",
+    "send": "Enviar",
+    "categories": {
+      "account": "Conta",
+      "plans": "Planos",
+      "billing": "Cobrança",
+      "team": "Team",
+      "files": "Arquivos",
+      "creations": "Criações",
+      "voice": "Voz",
+      "privacy": "Privacidade",
+      "bug": "Problema técnico",
+      "other": "Outro"
+    },
+    "status": {
+      "open": "Aberto",
+      "in_review": "Em análise",
+      "answered": "Respondido",
+      "resolved": "Resolvido"
+    }
+  },
+  "team": {
+    "fewer": "Menos assentos {seat}",
+    "seatCount": "{count} assentos {seat}",
+    "more": "Mais assentos {seat}",
+    "noTeamTitle": "Crie seu team",
+    "noTeamBody": "Assentos Standard e Premium, de {min} a {max} pessoas, em uma única cobrança.",
+    "name": "Nome do team",
+    "mySeat": "Meu assento:",
+    "total": "{count} assentos · {price} por mês",
+    "create": "Criar team e pagar",
+    "activationNote": "Os assentos ficam ativos assim que o pagamento é confirmado.",
+    "acceptTitle": "Recebeu um convite?",
+    "acceptLabel": "Código do convite",
+    "accept": "Entrar no team",
+    "removeTitle": "Remover {email}?",
+    "removeMessage": "A pessoa perde o acesso ao team e o assento fica livre.",
+    "remove": "Remover",
+    "mySeatValue": "Seu assento: {seat}",
+    "pendingPayment": "O team aguarda a confirmação do pagamento.",
+    "periodEnd": "Período atual até {date}",
+    "seats": "Assentos",
+    "seatsUsed": "{used} de {purchased} em uso",
+    "monthly": "Total mensal",
+    "pendingChange": "Mudança agendada: {standard} Standard, {premium} Premium",
+    "members": "Membros",
+    "invite": "Convidar",
+    "inviteEmail": "E-mail da pessoa",
+    "inviteCreated": "Convite para {email} criado. Válido até {date}.",
+    "shareInvite": "Compartilhar convite",
+    "inviteMessage": "Você foi convidado para um team no TRINDATRON. Código do convite: {token}",
+    "seat": {
+      "standard": "Standard",
+      "premium": "Premium"
+    },
+    "seatDetail": {
+      "standard": "{price} por assento/mês",
+      "premium": "{price} por assento/mês"
+    },
+    "status": {
+      "active": "Ativo",
+      "pending_payment": "Aguardando pagamento",
+      "inactive": "Inativo"
+    },
+    "role": {
+      "owner": "Dono",
+      "admin": "Admin",
+      "member": "Membro"
+    },
+    "memberStatus": {
+      "invited": "Convidado",
+      "pending": "Pendente",
+      "active": "Ativo"
+    }
+  },
+  "settings": {
+    "answers": "Respostas",
+    "style": "Estilo",
+    "styleValue": {
+      "concise": "Direto",
+      "balanced": "Equilibrado",
+      "detailed": "Detalhado"
+    },
+    "styleHint": "Vale para conversas, agentes e tarefas agendadas.",
+    "privacy": "Privacidade",
+    "memories": "Memórias",
+    "privacyAndData": "Privacidade e dados",
+    "devices": "Dispositivos conectados"
+  },
+  "devices": {
+    "actions": "Ações de {device}",
+    "name": {
+      "app": "App TRINDATRON",
+      "appOn": "App TRINDATRON no {os}",
+      "browserOn": "{browser} no {os}",
+      "unknown": "Aparelho desconhecido"
+    },
+    "platform": {
+      "android": "Android",
+      "ios": "iPhone ou iPad",
+      "windows": "Windows",
+      "mac": "Mac",
+      "linux": "Linux",
+      "unknown": "aparelho desconhecido"
+    },
+    "thisDevice": "Este aparelho",
+    "lastUsed": "Usado em {when}",
+    "startedAt": "Conectado em {when}",
+    "revoke": "Desconectar",
+    "revokeTitle": "Desconectar este aparelho?",
+    "revokeMessage": "{device} vai precisar entrar de novo.",
+    "signOutAll": "Sair de todos os aparelhos",
+    "signOutAllTitle": "Sair de todos os aparelhos?",
+    "signOutAllMessage": "Isso inclui este aparelho: você vai precisar entrar de novo.",
+    "signOutAllNote": "Encerra todas as sessões, inclusive esta.",
+    "emptyTitle": "Nenhum outro aparelho",
+    "emptyBody": "Você está conectado apenas aqui.",
+    "client": {
+      "web": "Navegador",
+      "mobile": "Celular",
+      "desktop": "Computador"
+    }
+  },
+  "memories": {
+    "useMemory": "Usar memória nas respostas",
+    "useMemoryOn": "Ligada: o que o TRINDATRON guardou sobre você pode entrar nas respostas.",
+    "useMemoryOff": "Desligada: nenhuma memória entra nas respostas. O que já foi salvo continua guardado até você apagar.",
+    "emptyTitle": "Nenhuma memória salva",
+    "emptyBody": "O TRINDATRON guarda aqui o que você pedir para lembrar.",
+    "deleteA11y": "Apagar esta memória",
+    "clear": "Apagar todas as memórias",
+    "clearTitle": "Apagar todas as memórias?",
+    "clearMessage": "Isso não pode ser desfeito."
+  },
+  "privacy": {
+    "whatIsKept": "O que é guardado",
+    "conversationTitle": "Contexto da conversa",
+    "conversationBody": "As mensagens de uma conversa servem para responder dentro dela.",
+    "memoryTitle": "Memória",
+    "memoryBody": "Fatos que você salvou, usados em conversas futuras quando fazem sentido.",
+    "productTitle": "Melhoria do produto",
+    "productBody": "Apenas contagens agregadas de quais capacidades são pedidas — nunca o conteúdo das suas mensagens.",
+    "yourData": "Seus dados",
+    "export": "Baixar meus dados",
+    "exportBody": "Um arquivo com perfil, preferências, memórias, conversas, criações e agendados.",
+    "deletionNote": "A exclusão completa da conta ainda não está disponível pelo aplicativo."
+  },
+  "scheduled": {
+    "new": "Nova tarefa agendada",
+    "title": "Título",
+    "instruction": "O que fazer",
+    "instructionHint": "A tarefa pesquisa, escreve e resume no horário marcado.",
+    "repeat": "Repetir",
+    "create": "Agendar",
+    "kind": {
+      "hourly": "A cada hora",
+      "daily": "Todo dia",
+      "weekly": "Toda semana"
+    },
+    "everyHour": "A cada hora",
+    "everyDay": "Todo dia às {time}",
+    "everyWeek": "Toda {weekday} às {time}",
+    "weekday": {
+      "0": "segunda",
+      "1": "terça",
+      "2": "quarta",
+      "3": "quinta",
+      "4": "sexta",
+      "5": "sábado",
+      "6": "domingo"
+    },
+    "weekdayShort": {
+      "0": "Seg",
+      "1": "Ter",
+      "2": "Qua",
+      "3": "Qui",
+      "4": "Sex",
+      "5": "Sáb",
+      "6": "Dom"
+    },
+    "active": "Ativa",
+    "paused": "Pausada",
+    "nextRun": "Próxima: {when}",
+    "noNextRun": "Sem próxima execução",
+    "runNow": "Executar agora",
+    "pause": "Pausar",
+    "resume": "Retomar",
+    "deleteA11y": "Excluir {title}",
+    "deleteTitle": "Excluir tarefa?",
+    "deleteMessage": "{title} não será mais executada.",
+    "runStatus": {
+      "queued": "Na fila",
+      "running": "Executando",
+      "completed": "Concluída",
+      "failed": "Falhou",
+      "cancelled": "Cancelada"
+    },
+    "emptyTitle": "Nenhuma tarefa agendada",
+    "emptyBody": "Peça algo que o TRINDATRON deve fazer sozinho, no horário que você escolher.",
+    "researchNote": "Ações em sites ou arquivos continuam acontecendo em conversas, com a sua aprovação."
+  },
+  "computerUse": {
+    "headline": "Deixe o TRINDATRON usar o computador por você.",
+    "subhead": "Você não precisa saber onde clicar. Só precisa dizer o que quer fazer.",
+    "howItWorks": "Diga o objetivo. O TRINDATRON abre o site, encontra a opção, lê, clica e preenche — mostrando cada passo.",
+    "isolationNote": "Ele trabalha num navegador isolado, não no seu aparelho.",
+    "approvalNote": "Antes de clicar, preencher ou alterar qualquer coisa, ele pede a sua aprovação.",
+    "tryThis": "Experimente",
+    "conversationTitle": "Usar o computador",
+    "example": {
+      "findOption": "Eu não sei onde fica essa opção. Encontre para mim.",
+      "signUp": "Entre neste site e descubra onde faço meu cadastro.",
+      "comparePrices": "Encontre o melhor preço e compare.",
+      "fillForm": "Abra este formulário e preencha estas informações."
+    },
+    "state": {
+      "plan": {
+        "title": "Não incluído no seu plano",
+        "body": "Seu plano atual não inclui usar o computador."
+      },
+      "unavailable": {
+        "title": "Indisponível neste ambiente",
+        "body": "Está incluído no seu plano, mas não está funcionando neste ambiente agora."
+      },
+      "not_integrated": {
+        "title": "Indisponível",
+        "body": "Usar o computador não está disponível no TRINDATRON."
+      }
+    }
+  }
+}
