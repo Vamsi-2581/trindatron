@@ -1,0 +1,57 @@
+[project]
+name = "trinity-core"
+version = "0.1.0"
+description = "TRINITY CORE - Main API backend for TRINDATRON"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "pydantic[email]>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "sqlalchemy>=2.0.0",
+    "alembic>=1.14.0",
+    "psycopg[binary]>=3.0",
+    "python-dotenv>=1.0.0",
+    "httpx>=0.27.0",
+    "litellm>=1.50.0",
+    "anthropic>=0.40.0",
+    "python-jose[cryptography]>=3.5.0",
+    # Direct dependency (not left to python-jose's transitive pull-in) — the
+    # Binance Pay adapter (billing/providers/binance_pay_adapter.py) imports
+    # it directly for RSA-SHA256 webhook signature verification.
+    "cryptography>=42.0.0",
+    "bcrypt>=4.0.0",
+    "python-multipart>=0.0.9",
+    "duckduckgo-search>=6.2.0",
+    # Direct dependency (not left to a transitive pull-in) — zoneinfo has no
+    # IANA timezone data of its own on Windows (no OS-level tz database),
+    # and we must not presume the deploy target (Railway/Linux) has one
+    # either. Required for the timezone-aware weekly reset (src/timezones.py).
+    "tzdata>=2024.1",
+    "trinity-sandbox",
+    "trinity-model-router",
+    # Path dependency only — first step of the packages/agent consolidation.
+    # Not imported anywhere in production yet.
+    "trinity-agent",
+    "pypdf>=5.0.0",
+    "vtracer>=0.6.15",
+]
+
+[tool.uv.sources]
+trinity-sandbox = { path = "../sandbox" }
+trinity-model-router = { path = "../model-router" }
+trinity-agent = { path = "../agent" }
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"

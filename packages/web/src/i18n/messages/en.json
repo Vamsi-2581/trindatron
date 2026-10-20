@@ -1,0 +1,56 @@
+{
+  "activity": {
+    "chat":       { "processing":    "Processing" },
+    "research":   { "searching":     "Searching for information" },
+    "code":       { "analyzing": "Analyzing code", "planning": "Planning implementation", "limit_reached": "Iteration limit reached" },
+    "work":       { "preparing": "Preparing task", "researching": "Searching for information", "creating": "Creating document", "approval_required": "Awaiting approval", "approved": "Action approved", "rejected": "Action rejected" },
+    "image":      { "preparing":     "Preparing image generation" },
+    "video":      { "preparing":     "Preparing video generation" },
+    "audio":      { "preparing":     "Preparing audio" },
+    "files":      { "accessing":     "Accessing files" },
+    "automation": { "configuring":   "Configuring automation" },
+    "agent":      { "starting":      "Starting agent" },
+    "tool": {
+      "read_file":        "Reading file",
+      "write_file":       "Saving file",
+      "list_directory":   "Listing directory",
+      "execute_shell":    "Running command",
+      "web_search":       "Searching the web",
+      "browser_navigate": "Browsing the web",
+      "browser_get_text": "Reading page",
+      "browse_url":       "Accessing URL",
+      "create_document":  "Creating document",
+      "send_notification": "Awaiting approval",
+      "browser_screenshot": "Capturing screen",
+      "browser_click":    "Clicking on the page",
+      "browser_fill":     "Filling in a form",
+      "desktop_screenshot": "Capturing screen",
+      "desktop_get_windows": "Checking windows",
+      "desktop_move":     "Moving the cursor",
+      "desktop_click":    "Clicking",
+      "desktop_type":     "Typing",
+      "desktop_scroll":   "Scrolling",
+      "desktop_open":     "Opening an app",
+      "generic":          "Executing action"
+    }
+  },
+  "error": {
+    "network": {
+      "connection_failed": "Could not connect to TRINDATRON (check if the server is running)"
+    },
+    "auth": {
+      "invalid_credentials": "Invalid email or password",
+      "unauthenticated":     "Not authenticated"
+    },
+    "session": {
+      "not_found":    "Conversation not found",
+      "create_failed": "Failed to create conversation",
+      "list_failed":   "Failed to load conversations"
+    },
+    "usage": {
+      "load_failed":    "Failed to load usage",
+      "limit_exceeded": "Usage limit reached. Please try again later."
+    },
+    "generic": "An error occurred"
+  }
+}

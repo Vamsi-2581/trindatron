@@ -1,0 +1,9 @@
+[project]
+name = "trinity-memory"
+version = "0.1.0"
+description = "TRINITY MEMORY - Data persistence layer"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false

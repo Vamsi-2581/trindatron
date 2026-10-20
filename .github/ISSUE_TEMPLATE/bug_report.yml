@@ -1,0 +1,56 @@
+name: Bug report
+description: Something does not work as documented
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! **Security problems go through SECURITY.md, not here.**
+        Never paste API keys, tokens or `.env` contents.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Start the backend with ...
+        2. Send ...
+        3. See error ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Backend (packages/core)
+        - Model router
+        - Agent / sandbox
+        - Web app
+        - Desktop app
+        - Docs
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Commit or version
+      placeholder: e.g. main @ abc1234
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: e.g. Windows 11, Python 3.12, Node 22, SQLite
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant output, with secrets removed.
+      render: shell

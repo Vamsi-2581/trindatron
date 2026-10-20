@@ -1,0 +1,56 @@
+{
+  "activity": {
+    "chat":       { "processing":    "Procesando" },
+    "research":   { "searching":     "Buscando información" },
+    "code":       { "analyzing": "Analizando código", "planning": "Planificando implementación", "limit_reached": "Límite de iteraciones alcanzado" },
+    "work":       { "preparing": "Preparando tarea", "researching": "Buscando información", "creating": "Creando documento", "approval_required": "Esperando aprobación", "approved": "Acción aprobada", "rejected": "Acción rechazada" },
+    "image":      { "preparing":     "Preparando generación de imagen" },
+    "video":      { "preparing":     "Preparando generación de video" },
+    "audio":      { "preparing":     "Preparando audio" },
+    "files":      { "accessing":     "Accediendo a archivos" },
+    "automation": { "configuring":   "Configurando automatización" },
+    "agent":      { "starting":      "Iniciando agente" },
+    "tool": {
+      "read_file":        "Leyendo archivo",
+      "write_file":       "Guardando archivo",
+      "list_directory":   "Listando directorio",
+      "execute_shell":    "Ejecutando comando",
+      "web_search":       "Buscando en la web",
+      "browser_navigate": "Navegando en la web",
+      "browser_get_text": "Leyendo página",
+      "browse_url":       "Accediendo URL",
+      "create_document":  "Creando documento",
+      "send_notification": "Esperando aprobación",
+      "browser_screenshot": "Capturando pantalla",
+      "browser_click":    "Haciendo clic en la página",
+      "browser_fill":     "Completando un formulario",
+      "desktop_screenshot": "Capturando pantalla",
+      "desktop_get_windows": "Revisando ventanas",
+      "desktop_move":     "Moviendo el cursor",
+      "desktop_click":    "Haciendo clic",
+      "desktop_type":     "Escribiendo",
+      "desktop_scroll":   "Desplazando",
+      "desktop_open":     "Abriendo una aplicación",
+      "generic":          "Ejecutando acción"
+    }
+  },
+  "error": {
+    "network": {
+      "connection_failed": "No se pudo conectar a TRINDATRON (verifica si el servidor está en ejecución)"
+    },
+    "auth": {
+      "invalid_credentials": "Email o contraseña inválidos",
+      "unauthenticated":     "No autenticado"
+    },
+    "session": {
+      "not_found":    "Conversación no encontrada",
+      "create_failed": "Error al crear conversación",
+      "list_failed":   "Error al cargar conversaciones"
+    },
+    "usage": {
+      "load_failed":    "Error al cargar uso",
+      "limit_exceeded": "Límite de uso alcanzado. Por favor, inténtalo más tarde."
+    },
+    "generic": "Ocurrió un error"
+  }
+}

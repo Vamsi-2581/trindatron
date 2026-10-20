@@ -1,0 +1,573 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── TRINITY Design Tokens ──────────────────────────────────────────────── */
+:root {
+  /* Backgrounds — graphite, not tinted.
+     The previous scale carried a purple cast (#09090f, #111119) because it
+     was built around the old purple accent. Against chrome and cyan that
+     cast reads as a colour cast rather than a choice, and it is the single
+     thing that makes a dark interface look like every other dark SaaS.
+     These are neutral, very slightly cool, so the accent is the only hue
+     on the page. */
+  --bg:          #07080a;
+  --surface-1:   #0e1013;
+  --surface-2:   #14171b;
+  --surface-3:   #1b1f24;
+  --surface-4:   #242930;
+
+  /* Borders */
+  --border:        #23282f;
+  --border-subtle: #171b20;
+
+  /* Brand accent — derived from the official mark.
+     The master logo is a chrome trefoil lit in cyan over a black wordmark,
+     so cyan is the brand's own hue rather than a new one: this palette is
+     read off the mark, not invented beside it. Purple (#7c3aed) was the
+     pre-logo placeholder and is deliberately gone — keeping it would leave
+     the product wearing two identities.
+
+     --accent is the interactive cyan, dark enough to carry #07080a text on
+     top of it; --accent-light is the one that survives at small sizes on a
+     dark background. */
+  --accent:        #00c2d4;
+  --accent-hover:  #00a5b5;
+  --accent-muted:  rgba(0, 194, 212, 0.12);
+  --accent-light:  #5ee4f2;
+  --accent-glow:   rgba(0, 194, 212, 0.22);
+  --accent-dim:    #0a3a42;
+
+  /* Chrome — the mark's other half. A polished metal ramp, used for large
+     display type and hairlines so the surface reads as machined rather
+     than printed. Not a colour: a material.
+
+     --chrome-low is the ramp's darkest stop and it is deliberately light.
+     A more dramatic metal (it started at #6a7480) put the middle of a wide
+     headline at 4.1:1, dimmer on screen than the body paragraph beneath
+     it — the primary line of the page reading as the quietest thing on it.
+     At #9aa4b0 the ramp still turns, and the darkest point of the headline
+     is 7.9:1: brighter than body copy, as a headline should be. */
+  --chrome-high:   #f4f7fa;
+  --chrome-mid:    #b9c2cc;
+  --chrome-low:    #9aa4b0;
+  /* The same material, inverted, for chrome type on paper. */
+  --chrome-ink-high: #6f7a86;
+  --chrome-ink-low:  #1b2027;
+  --chrome-ramp: linear-gradient(
+    160deg,
+    var(--chrome-high) 0%,
+    var(--chrome-mid) 26%,
+    var(--chrome-low) 50%,
+    var(--chrome-mid) 74%,
+    var(--chrome-high) 100%
+  );
+
+  /* RGB channel values — for Tailwind opacity modifiers (bg-accent/10, etc.)
+     Every colour that anything applies an opacity to MUST appear here and be
+     wired through tailwind.config.ts in `rgb(var(--x-ch) / <alpha-value>)`
+     form. A colour declared only as a plain `var(--x)` cannot take a modifier:
+     Tailwind emits nothing and the declaration silently disappears, which is
+     how the fixed header ended up with no background at all over the light
+     sections — `bg-bg/80` looked right in the markup and computed to
+     rgba(0,0,0,0). */
+  --accent-ch:       0 194 212;
+  --accent-light-ch: 94 228 242;
+  --bg-ch:           7 8 10;
+  --surface-1-ch:    14 16 19;
+  --surface-2-ch:    20 23 27;
+  --surface-3-ch:    27 31 36;
+  --surface-4-ch:    36 41 48;
+  --border-ch:       35 40 47;
+  --border-subtle-ch: 23 27 32;
+  --paper-ch:        238 241 244;
+  --success-ch:      16 185 129;
+  --warning-ch:      245 158 11;
+  --error-ch:        239 68 68;
+
+  /* Text hierarchy.
+     Measured against --bg, because "looks fine" is not a contrast ratio:
+       primary   #f2f5f8  -> 17.4:1
+       secondary #a6aeb8  -> 8.6:1
+       muted     #7e868f  -> 5.2:1
+     --text-muted used to be #565e68, which measures 3.0:1 — under the 4.5:1
+     WCAG 2.2 AA floor for body text, and it was carrying real sentences.
+     Nothing on this site states information in type that cannot be read. */
+  --text-primary:   #f2f5f8;
+  --text-secondary: #a6aeb8;
+  --text-muted:     #7e868f;
+  --text-inverse:   #07080a;
+
+  /* Light surfaces — the other half of the page.
+     A dark-only site reads as a wall and, worse, the brand mark cannot live
+     on it at display size: the master artwork is a 3D render on a studio
+     backdrop, so it belongs on paper, not floated on black. Alternating
+     graphite and paper is the page's structural rhythm, not decoration. */
+  --paper:       #eef1f4;
+  --paper-2:     #e3e8ec;
+  --paper-edge:  #cfd6dc;
+  --ink:         #0b0e11;   /* 17:1 on --paper */
+  --ink-2:       #39424c;   /* 8.3:1 on --paper */
+  --ink-3:       #5a6570;   /* 4.9:1 on --paper */
+
+  /* Semantic status */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error:   #ef4444;
+  --color-info:    #3b82f6;
+
+  /* Radius scale */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-xl:   20px;
+  --r-full: 9999px;
+
+  /* Shadow scale */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.6);
+  --shadow-accent: 0 0 24px rgba(0, 194, 212, 0.25);
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+#__next, main { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar          { width: 5px; height: 5px; }
+::-webkit-scrollbar-track    { background: transparent; }
+::-webkit-scrollbar-thumb    { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--surface-4); }
+
+/* ── Selection ──────────────────────────────────────────────────────────── */
+::selection { background: rgba(0, 194, 212, 0.3); color: var(--text-primary); }
+
+/* ── Focus ──────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Prose (markdown content) ───────────────────────────────────────────── */
+.prose-trinity { line-height: 1.75; }
+.prose-trinity p    { margin-bottom: 0.75em; }
+.prose-trinity p:last-child { margin-bottom: 0; }
+.prose-trinity h1, .prose-trinity h2, .prose-trinity h3 {
+  font-weight: 600;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+  color: var(--text-primary);
+}
+.prose-trinity h1 { font-size: 1.25em; }
+.prose-trinity h2 { font-size: 1.125em; }
+.prose-trinity h3 { font-size: 1em; }
+.prose-trinity ul, .prose-trinity ol { padding-left: 1.5em; margin-bottom: 0.75em; }
+.prose-trinity li { margin-bottom: 0.25em; }
+.prose-trinity code {
+  font-family: var(--font-mono, ui-monospace);
+  font-size: 0.875em;
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  color: var(--accent-light);
+}
+.prose-trinity pre {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 1em;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+.prose-trinity pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--text-primary);
+  font-size: 0.8125em;
+}
+.prose-trinity blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1em;
+  color: var(--text-secondary);
+  margin: 0.75em 0;
+}
+.prose-trinity a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 2px; }
+.prose-trinity strong { font-weight: 600; color: var(--text-primary); }
+.prose-trinity hr { border: none; border-top: 1px solid var(--border); margin: 1em 0; }
+.prose-trinity table { width: 100%; border-collapse: collapse; margin-bottom: 0.75em; font-size: 0.875em; }
+.prose-trinity th, .prose-trinity td { border: 1px solid var(--border); padding: 0.5em 0.75em; text-align: left; }
+.prose-trinity th { background: var(--surface-3); color: var(--text-secondary); font-weight: 500; }
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   PUBLIC SITE (marketing)
+
+   Everything below is scoped to the public pages. The app UI above is dense
+   and viewport-locked; the commercial page scrolls and breathes, so it needs
+   to opt out of the `height: 100%` chain that `main` inherits.
+   ════════════════════════════════════════════════════════════════════════ */
+
+main.landing { height: auto; min-height: 100vh; }
+
+/* Machined display type.
+   The mark is chrome, so the largest type on the page is chrome too — a
+   metal ramp clipped to the glyphs rather than a flat off-white. It is the
+   cheapest way to make a dark page read as an instrument rather than as
+   another dark SaaS template, because it is the one surface treatment a
+   template cannot fake with a hue swap.
+
+   Used sparingly and only at display sizes: at body size the ramp turns
+   into mud and costs contrast, which is why there is no small variant. */
+.chrome-type {
+  background: var(--chrome-ramp);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* A text-shadow would be painted over transparent glyphs and show
+     through; the highlight goes on the ramp itself instead. */
+}
+
+/* The hero headline. The standard ramp dips to --chrome-low in the middle,
+   which is right for a section heading and too dark for the biggest line on
+   the page — at 4.5rem it left the headline reading quieter than the
+   paragraph under it. This one stays in the bright half of the material. */
+.chrome-display {
+  background: linear-gradient(168deg, #ffffff 0%, var(--chrome-high) 38%, #cfd8e0 62%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Falls back to solid text wherever background-clip: text is unsupported,
+   rather than rendering an invisible headline. */
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .chrome-type { background: none; color: var(--text-primary); }
+  .chrome-display { background: none; color: var(--text-primary); }
+}
+
+/* A hairline of machined metal — section rules, card tops, dividers. */
+.chrome-rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--chrome-low) 18%,
+    var(--chrome-mid) 50%,
+    var(--chrome-low) 82%,
+    transparent
+  );
+  opacity: 0.5;
+}
+
+/* Faint technical grid, used behind the hero. Masked so it dissolves
+   instead of ending on a hard line. */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(35, 40, 47, 0.55) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(35, 40, 47, 0.55) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 55% at 50% 0%, #000 30%, transparent 78%);
+}
+
+/* Entrance animation for sections. Purely additive: if the animation never
+   runs the element is still fully visible (see the reduced-motion block). */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rise {
+  animation: riseIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Adaptive Intelligence Router visual ───────────────────────────────── */
+
+.air {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 460px;
+  margin-inline: auto;
+  padding-block: 8px;
+  font-size: 13px;
+}
+
+.air-glow {
+  position: absolute;
+  inset: -18% -30% auto -30%;
+  height: 70%;
+  background: radial-gradient(ellipse at 50% 40%, rgba(0, 194, 212, 0.13), transparent 65%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.air-card,
+.air-core,
+.air-node {
+  position: relative;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface-1) 82%, transparent);
+  border-radius: var(--r-lg);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.4s ease, background 0.4s ease;
+}
+.air-card.is-on,
+.air-core.is-on,
+.air-node.is-on { opacity: 1; transform: translateY(0); }
+
+/* Request */
+.air-request {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 15px;
+}
+.air-request-text { color: var(--text-secondary); line-height: 1.45; }
+.air-dot {
+  width: 7px; height: 7px; flex: none;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0, 194, 212, 0.14);
+}
+
+/* Router core */
+.air-core {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 15px;
+  border-color: rgba(0, 194, 212, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 194, 212, 0.13),
+    color-mix(in srgb, var(--surface-1) 82%, transparent) 62%
+  );
+}
+.air-core.is-on { box-shadow: 0 0 36px -14px rgba(0, 194, 212, 0.85); }
+.air-core-mark { width: 26px; height: 23px; color: var(--accent-light); flex: none; }
+.air-core-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.air-core-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.air-core-sub {
+  color: var(--accent-light);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.air-ring {
+  position: absolute;
+  left: 15px; top: 50%;
+  width: 26px; height: 26px;
+  margin-top: -13px;
+  border: 1px solid rgba(0, 194, 212, 0.5);
+  border-radius: 999px;
+  animation: airRing 2.6s ease-out infinite;
+  pointer-events: none;
+}
+.air-ring-2 { animation-delay: 1.3s; }
+@keyframes airRing {
+  0%   { transform: scale(0.6); opacity: 0.75; }
+  100% { transform: scale(2.9); opacity: 0; }
+}
+
+/* Candidate lane */
+.air-lane {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+.air-node {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 11px 10px 12px;
+  border-radius: var(--r-md);
+  text-align: left;
+}
+.air-node-label { font-weight: 500; color: var(--text-primary); font-size: 12.5px; }
+.air-node-hint  { color: var(--text-muted); font-size: 10.5px; line-height: 1.3; }
+.air-node.is-dim { opacity: 0.32; }
+.air-node.is-chosen {
+  border-color: rgba(0, 194, 212, 0.55);
+  background: rgba(0, 194, 212, 0.12);
+  box-shadow: 0 0 24px -12px rgba(0, 194, 212, 0.9);
+}
+.air-node-flag {
+  margin-top: 5px;
+  align-self: flex-start;
+  border-radius: 999px;
+  background: rgba(0, 194, 212, 0.2);
+  color: var(--accent-light);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+}
+
+/* Result */
+.air-result {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  padding: 13px 15px;
+  border-color: rgba(16, 185, 129, 0.28);
+  background: rgba(16, 185, 129, 0.07);
+}
+.air-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px; height: 21px; flex: none;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.16);
+  color: var(--color-success);
+}
+.air-result-body { display: flex; flex-direction: column; gap: 1px; }
+.air-result-title { font-weight: 500; color: var(--text-primary); }
+.air-result-sub { color: var(--text-muted); font-size: 11.5px; }
+
+/* Wires between stages */
+.air-wire {
+  position: relative;
+  width: 1px;
+  height: 26px;
+  flex: none;
+  overflow: hidden;
+}
+.air-wire-fan { height: 22px; }
+.air-wire-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+}
+.air-wire.is-on .air-wire-line {
+  background: linear-gradient(to bottom, transparent, rgba(0, 194, 212, 0.55), transparent);
+}
+.air-wire-pulse {
+  position: absolute;
+  left: -1px;
+  width: 3px; height: 9px;
+  border-radius: 2px;
+  background: var(--accent-light);
+  box-shadow: 0 0 9px var(--accent);
+  animation: airPulse 1.5s linear infinite;
+}
+@keyframes airPulse {
+  from { top: -10px; opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  to   { top: 100%; opacity: 0; }
+}
+
+/* ── Motion preferences ────────────────────────────────────────────────────
+   Reduced motion must not mean "invisible". Every animated element resolves
+   to its final, fully readable state — nothing stays mid-transition. */
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; opacity: 1; transform: none; }
+  .air-card, .air-core, .air-node { opacity: 1; transform: none; transition: none; }
+  .air-ring, .air-wire-pulse { display: none; }
+  .air-node.is-dim { opacity: 1; }
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   LANDING — surfaces, motion and the few effects the page actually uses.
+   Kept in CSS rather than a library: everything below is a gradient, a
+   transform or a keyframe, and none of it is worth a runtime dependency.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* A paper section. Sets its own text colours so children can stay ignorant
+   of which surface they landed on. */
+.paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+.paper .t-1 { color: var(--ink); }
+.paper .t-2 { color: var(--ink-2); }
+.paper .t-3 { color: var(--ink-3); }
+.paper .hairline { background: var(--paper-edge); }
+
+/* Graphite is the default surface; these mirror .paper so a section can be
+   flipped by swapping one class. */
+.graphite { background: var(--bg); color: var(--text-primary); }
+.graphite .t-1 { color: var(--text-primary); }
+.graphite .t-2 { color: var(--text-secondary); }
+.graphite .t-3 { color: var(--text-muted); }
+.graphite .hairline { background: var(--border); }
+
+/* Chrome display type on paper. */
+.chrome-ink {
+  background: linear-gradient(168deg, var(--chrome-ink-low) 0%, var(--chrome-ink-high) 48%, var(--chrome-ink-low) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+  .chrome-ink { background: none; color: var(--ink); }
+}
+
+/* The seam between a graphite section and a paper one. A hard edge looks
+   like two pages stacked; this makes it read as one surface lit differently. */
+.seam-to-paper { background: linear-gradient(to bottom, var(--bg), var(--paper)); }
+.seam-to-graphite { background: linear-gradient(to bottom, var(--paper), var(--bg)); }
+
+/* ── Reveal on scroll ─────────────────────────────────────────────────────
+   One class, driven by an IntersectionObserver in `reveal.tsx`. Elements are
+   fully visible if the observer never runs (no JS, old browser, reduced
+   motion) — the animation is an enhancement, never a gate on content. */
+.rv { opacity: 0; transform: translateY(14px); }
+.rv-in { opacity: 1; transform: none; transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+
+/* ── The intelligence field ───────────────────────────────────────────────
+   Nodes converging on one core. Pure CSS: a rotating ring of dots with a
+   pulse travelling inward, standing in for "many intelligences, one answer"
+   without naming a single vendor. */
+@keyframes orbit { to { transform: rotate(360deg); } }
+@keyframes converge {
+  0%   { opacity: 0; transform: scale(1); }
+  18%  { opacity: .9; }
+  100% { opacity: 0; transform: scale(0); }
+}
+@keyframes breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.field-ring { animation: orbit 46s linear infinite; transform-origin: 50% 50%; }
+.field-ring-slow { animation: orbit 78s linear infinite reverse; transform-origin: 50% 50%; }
+.field-pulse { animation: converge 3.6s cubic-bezier(.4,0,.2,1) infinite; transform-origin: 50% 50%; }
+.field-core { animation: breathe 4.2s ease-in-out infinite; }
+
+/* ── Globe ───────────────────────────────────────────────────────────────── */
+@keyframes globe-spin { to { transform: translateX(-50%); } }
+.globe-lon { animation: globe-spin 24s linear infinite; }
+
+/* ── Stepper ──────────────────────────────────────────────────────────────
+   The progress rail in the Work section fills as each step activates. */
+.rail-fill { transition: transform .6s cubic-bezier(.16,1,.3,1); transform-origin: top; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; }
+  .field-ring, .field-ring-slow, .field-pulse, .field-core, .globe-lon { animation: none; }
+  .rail-fill { transition: none; }
+}

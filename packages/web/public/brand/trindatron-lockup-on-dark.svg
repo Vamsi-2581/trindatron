@@ -1,0 +1,11 @@
+<!-- TRINDATRON brand asset. Geometry derives from the official mark in
+     src/components/brand/trinity-mark.tsx. Do not redraw. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208 28" width="208" height="28" role="img" aria-label="TRINDATRON">
+  <title>TRINDATRON lockup for dark backgrounds</title>
+  <g>
+    <circle cx="16" cy="4" r="3.5" fill="#00c2d4" opacity="1"/>
+    <circle cx="4.5" cy="24" r="3.5" fill="#00c2d4" opacity="0.6"/>
+    <circle cx="27.5" cy="24" r="3.5" fill="#00c2d4" opacity="0.35"/>
+  </g>
+  <text x="44" y="19.5" font-family="Inter, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif" font-size="15.5" font-weight="600" letter-spacing="2.3" fill="#eef2f6">TRINDATRON</text>
+</svg>

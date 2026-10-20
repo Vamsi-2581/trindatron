@@ -1,0 +1,45 @@
+{
+ "recordedAt": "2026-09-25",
+ "note": "Real outputs of the local TRINDATRON (production code, local engine config). Prompts are exactly what was sent; seconds are the job's own duration (video: to the nearest 4 s poll).",
+ "langs": {
+  "en": {
+   "image": {
+    "prompt": "Create an image: editorial fashion portrait of a woman in a flowing pink silk dress, soft studio light, pale grey backdrop, full body, 9:16",
+    "seconds": 10,
+    "src": "/home/media/image-en.jpg"
+   },
+   "video": {
+    "prompt": "Create a video of a woman in a flowing pink dress walking toward the camera, turning slowly and smiling, soft studio light, fashion film, 5 seconds",
+    "seconds": 44,
+    "src": "/home/media/video-en.mp4",
+    "poster": "/home/media/video-en-poster.jpg"
+   }
+  },
+  "pt": {
+   "image": {
+    "prompt": "Crie uma imagem: retrato editorial de moda de uma mulher com vestido de seda rosa esvoaçante, luz suave de estúdio, fundo cinza claro, corpo inteiro, 9:16",
+    "seconds": 9,
+    "src": "/home/media/image-pt.jpg"
+   },
+   "video": {
+    "prompt": "Crie um vídeo de uma mulher com um vestido rosa esvoaçante caminhando em direção à câmera, girando devagar e sorrindo, luz suave de estúdio, filme de moda, 5 segundos",
+    "seconds": 40,
+    "src": "/home/media/video-pt.mp4",
+    "poster": "/home/media/video-pt-poster.jpg"
+   }
+  },
+  "es": {
+   "image": {
+    "prompt": "Crea una imagen: retrato editorial de moda de una mujer con un vestido de seda rosa vaporoso, luz suave de estudio, fondo gris claro, cuerpo entero, 9:16",
+    "seconds": 8,
+    "src": "/home/media/image-es.jpg"
+   },
+   "video": {
+    "prompt": "Crea un video de una mujer con un vestido rosa vaporoso caminando hacia la cámara, girando despacio y sonriendo, luz suave de estudio, película de moda, 5 segundos",
+    "seconds": 40,
+    "src": "/home/media/video-es.mp4",
+    "poster": "/home/media/video-es-poster.jpg"
+   }
+  }
+ }
+}

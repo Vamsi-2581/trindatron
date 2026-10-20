@@ -1,0 +1,27 @@
+# Railway deployment configuration — TRINITY CORE (FastAPI backend)
+# https://docs.railway.com/reference/config-as-code
+#
+# IMPORTANT: This file must stay at the repository root.
+# The Dockerfile at packages/core/Dockerfile COPYs local path dependencies
+# (packages/model-router, packages/sandbox) that only exist in the full
+# monorepo context — Railway must use the repo root as the Docker build context.
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "packages/core/Dockerfile"
+
+[deploy]
+# preDeployCommand runs once after build, before the new instance goes live.
+# Alembic upgrade is idempotent — safe on every deploy.
+preDeployCommand = ["uv run alembic upgrade head"]
+
+# /bin/sh -c ensures $PORT is expanded by the shell at runtime.
+startCommand = "/bin/sh -c 'exec uv run uvicorn src.main:app --host 0.0.0.0 --port $PORT'"
+
+# /health is a lightweight endpoint (no DB query) — suitable for Railway's
+# health probe. Timeout raised to 300 s to allow cold-start DB connections.
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10

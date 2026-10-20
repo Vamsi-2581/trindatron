@@ -1,0 +1,6 @@
+{
+  "name": "@trinity/shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TRINITY SHARED - Shared types and utilities"
+}

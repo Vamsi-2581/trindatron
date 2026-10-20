@@ -1,0 +1,14 @@
+# Root .dockerignore — Railway/Docker build context is the repo root
+# (see railway.toml). Keeps the context small and deterministic: none of
+# these are read by any COPY instruction in packages/core/Dockerfile, but
+# without this file Docker still uploads them to the daemon on every build
+# (measured: packages/agent/.venv 320M, packages/core/.venv 377M, plus a
+# root-level node_modules/ for the frontend — none of it used by the build).
+
+**/.venv/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+.git/
+node_modules/
+**/node_modules/

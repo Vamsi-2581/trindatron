@@ -1,0 +1,5 @@
+# Benchmark run output — generated, not product. Regenerate with
+#   uv run python bench/run_policy_benchmark.py
+# The figures that matter are written up in ../README.md; the raw rows churn
+# on every run and carry full model responses, which do not belong in history.
+*.json

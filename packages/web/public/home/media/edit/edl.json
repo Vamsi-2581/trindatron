@@ -1,0 +1,109 @@
+{
+ "duration": 12.0,
+ "segments": [
+  {
+   "start": 0.0,
+   "end": 1.5,
+   "thumb": "/home/media/edit/thumb0.jpg",
+   "kind": "image"
+  },
+  {
+   "start": 1.5,
+   "end": 2.7,
+   "thumb": "/home/media/edit/thumb1.jpg",
+   "kind": "video"
+  },
+  {
+   "start": 2.7,
+   "end": 3.8,
+   "thumb": "/home/media/edit/thumb2.jpg",
+   "kind": "video"
+  },
+  {
+   "start": 3.8,
+   "end": 5.0,
+   "thumb": "/home/media/edit/thumb3.jpg",
+   "kind": "image"
+  },
+  {
+   "start": 5.0,
+   "end": 6.6,
+   "thumb": "/home/media/edit/thumb4.jpg",
+   "kind": "video"
+  },
+  {
+   "start": 6.6,
+   "end": 7.6,
+   "thumb": "/home/media/edit/thumb5.jpg",
+   "kind": "image"
+  },
+  {
+   "start": 7.6,
+   "end": 9.3,
+   "thumb": "/home/media/edit/thumb6.jpg",
+   "kind": "video"
+  },
+  {
+   "start": 9.3,
+   "end": 10.7,
+   "thumb": "/home/media/edit/thumb7.jpg",
+   "kind": "video"
+  },
+  {
+   "start": 10.7,
+   "end": 12.0,
+   "thumb": "/home/media/edit/thumb8.jpg",
+   "kind": "card"
+  }
+ ],
+ "captions": [
+  {
+   "id": "open",
+   "start": 0.15,
+   "end": 1.45
+  },
+  {
+   "id": "c1",
+   "start": 2.75,
+   "end": 3.75
+  },
+  {
+   "id": "c2",
+   "start": 5.05,
+   "end": 6.55
+  },
+  {
+   "id": "c3",
+   "start": 7.65,
+   "end": 9.25
+  },
+  {
+   "id": "end",
+   "start": 10.75,
+   "end": 12.0
+  }
+ ],
+ "text": {
+  "en": {
+   "open": "New collection · Rosa",
+   "c1": "Silk that moves.",
+   "c2": "Made to spin.",
+   "c3": "Light as air.",
+   "end": "Rosa · Available now"
+  },
+  "pt": {
+   "open": "Nova coleção · Rosa",
+   "c1": "Seda que se move.",
+   "c2": "Feita para girar.",
+   "c3": "Leve como o ar.",
+   "end": "Rosa · Disponível agora"
+  },
+  "es": {
+   "open": "Nueva colección · Rosa",
+   "c1": "Seda que se mueve.",
+   "c2": "Hecha para girar.",
+   "c3": "Ligera como el aire.",
+   "end": "Rosa · Disponible ahora"
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "trinity-ai",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TRINDATRON — Agentic AI Platform",
+  "workspaces": [
+    "packages/desktop",
+    "packages/web",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev:web": "npm --workspace packages/web run dev",
+    "dev:desktop": "npm --workspace packages/desktop run dev"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

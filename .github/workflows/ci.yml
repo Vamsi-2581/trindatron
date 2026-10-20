@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Pull requests from forks run with a read-only token and no secrets.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------
+  # Backend suite against a REAL PostgreSQL.
+  #
+  # Runs the full SQLite-backed pytest suite PLUS the PostgreSQL-gated tests
+  # that are skipped everywhere else (advisory-lock concurrency in
+  # check_and_reserve() and the migration chain on the production dialect —
+  # SQLite cannot reproduce either). See packages/core/tests/postgres_helpers.py.
+  # ---------------------------------------------------------------------
+  backend:
+    name: Backend suite (PostgreSQL + SQLite)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        # Disposable credentials for a container that lives only for this job.
+        env:
+          POSTGRES_USER: trinity_test
+          POSTGRES_PASSWORD: trinity_test_pw
+          POSTGRES_DB: trinity_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U trinity_test -d trinity_test"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 30
+
+    env:
+      # Read only by tests gated via postgres_helpers.postgres_available();
+      # every other test keeps using the SQLite fixtures in conftest.py.
+      TEST_POSTGRES_URL: postgresql+psycopg://trinity_test:trinity_test_pw@127.0.0.1:5432/trinity_test
+
+    defaults:
+      run:
+        working-directory: packages/core
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: uv sync --dev
+
+      - name: Apply migrations to PostgreSQL
+        # Same path a real deploy uses (`uv run alembic upgrade head`).
+        run: uv run alembic upgrade head
+        env:
+          DATABASE_URL: postgresql+psycopg://trinity_test:trinity_test_pw@127.0.0.1:5432/trinity_test
+
+      - name: Full pytest suite
+        run: uv run pytest -q -o faulthandler_timeout=120
+
+      - name: PostgreSQL connection test (needs DATABASE_URL itself to be PostgreSQL)
+        # src.database.engine is a process-wide singleton built from DATABASE_URL
+        # at import time, so this test cannot share a process with the SQLite suite.
+        run: uv run pytest tests/integration/test_database_config.py::test_postgresql_connection_pending -v
+        env:
+          DATABASE_URL: postgresql+psycopg://trinity_test:trinity_test_pw@127.0.0.1:5432/trinity_test
+
+  # ---------------------------------------------------------------------
+  # Python packages with their own suites.
+  # ---------------------------------------------------------------------
+  packages:
+    name: ${{ matrix.package }} tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [model-router, agent]
+
+    defaults:
+      run:
+        working-directory: packages/${{ matrix.package }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+
+      - name: pytest
+        run: uv run pytest -q
+
+  # ---------------------------------------------------------------------
+  # Frontend — npm workspaces are rooted at the repo root (see package.json).
+  # ---------------------------------------------------------------------
+  web:
+    name: Web typecheck + unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          # The desktop workspace's Electron binary is not needed to test the web app.
+          ELECTRON_SKIP_BINARY_DOWNLOAD: "1"
+
+      - name: tsc --noEmit
+        working-directory: packages/web
+        run: npx tsc --noEmit -p tsconfig.json
+
+      - name: vitest
+        working-directory: packages/web
+        run: npx vitest run
