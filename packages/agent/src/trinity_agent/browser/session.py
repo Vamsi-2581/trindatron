@@ -43,6 +43,7 @@ import asyncio
 import enum
 import logging
 from typing import Awaitable, Callable, Coroutine
+from urllib.parse import urljoin
 
 from playwright.async_api import (
     Browser,
@@ -57,6 +58,8 @@ from .governor import BrowserCapacityTimeoutError, BrowserResourceGovernor, _Slo
 from .network_policy import BlockedURLError, validate_request_url, validate_url_scheme
 
 logger = logging.getLogger("trinity_agent.browser.session")
+
+_REDIRECT_STATUSES = frozenset({301, 302, 303, 307, 308})
 
 LAUNCH_TIMEOUT_MS = 10_000
 NAVIGATION_TIMEOUT_MS = 30_000
@@ -226,7 +229,26 @@ class BrowserSession:
         except BlockedURLError:
             await route.abort("blockedbyclient")
             return
-        await route.continue_()
+        # Playwright calls this handler only for the FIRST request of a redirect
+        # chain: after route.continue_() Chromium follows a 302 to any host —
+        # cloud metadata, the private network — without coming back here. So the
+        # request is made without following redirects, the Location is checked
+        # with the same validator, and a fulfilled 3xx makes the browser issue
+        # the next hop as a new request, which is validated here again.
+        try:
+            response = await route.fetch(max_redirects=0)
+        except Exception:
+            await route.abort("failed")
+            return
+        if response.status in _REDIRECT_STATUSES:
+            location = response.headers.get("location")
+            if location:
+                try:
+                    await self._url_validator(urljoin(route.request.url, location))
+                except BlockedURLError:
+                    await route.abort("blockedbyclient")
+                    return
+        await route.fulfill(response=response)
 
     async def navigate(self, url: str) -> Page:
         """Navigate the session's page to `url`.

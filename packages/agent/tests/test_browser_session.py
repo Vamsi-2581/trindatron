@@ -239,6 +239,51 @@ async def test_default_policy_blocks_loopback_navigation(test_server):
 
 # ── SSRF: redirect to a private target is blocked, not just the entry URL ──────
 
+async def test_redirect_hop_is_validated_and_never_reaches_the_blocked_host(test_server):
+    """The hop itself must be checked, not just fail to connect.
+
+    The tests below redirect to addresses that usually do not answer, so they pass
+    as long as the browser *errors* — on a machine where 169.254.169.254 is a live
+    cloud metadata service (GitHub's Azure runners) the browser simply loaded it.
+    Here the forbidden target is a second local server that always answers, so
+    the only way to pass is to refuse the redirect before any request reaches it.
+    """
+    base_url, _server = test_server
+    internal = http.server.ThreadingHTTPServer(("127.0.0.1", 0), _Handler)
+    internal.hits = []
+    thread = threading.Thread(target=internal.serve_forever, daemon=True)
+    thread.start()
+    allowed_port = urlsplit(base_url).port
+
+    async def _only_the_public_server(url: str) -> None:
+        validate_url_scheme(url)
+        if urlsplit(url).port != allowed_port:
+            raise BlockedURLError(f"blocked for test: {url}")
+
+    session = BrowserSession("s-redirect-hop", url_validator=_only_the_public_server)
+    try:
+        internal_url = f"http://127.0.0.1:{internal.server_address[1]}/"
+        with pytest.raises(Exception):
+            await session.navigate(f"{base_url}/redirect?to={internal_url}")
+        assert internal.hits == []
+    finally:
+        await session.close()
+        internal.shutdown()
+        internal.server_close()
+        thread.join(timeout=5)
+
+
+async def test_allowed_redirect_is_still_followed(test_server):
+    base_url, server = test_server
+    session = BrowserSession("s-redirect-ok", url_validator=_loopback_only_validator)
+    try:
+        await session.navigate(f"{base_url}/redirect?to={base_url}/")
+        assert "hello" in await session.get_text()
+        assert server.hits[-1] == "/"
+    finally:
+        await session.close()
+
+
 async def test_redirect_to_metadata_endpoint_blocked(test_server):
     base_url, _server = test_server
     session = BrowserSession("s-redirect-block", url_validator=_loopback_only_validator)
