@@ -106,6 +106,10 @@ jobs:
       - name: Install dependencies
         run: uv sync --all-extras --dev
 
+      - name: Install Chromium for the browser-session tests
+        if: matrix.package == 'agent'
+        run: uv run playwright install --with-deps chromium
+
       - name: pytest
         run: uv run pytest -q
 
