@@ -144,7 +144,7 @@ Go deeper: [execution runtime](docs/EXECUTION_RUNTIME.md) ·
 [free compute pool](docs/FREE_COMPUTE_POOL.md) ·
 [local AI lab](docs/LOCAL_AI_LAB.md) ·
 [mobile app](docs/MOBILE.md) (pt-BR) ·
-[architecture decisions](docs/architecture/decisions)
+[architecture decisions](docs/architecture/decisions) ·\n[Developer guide (English)](docs/DEVELOPMENT.md) · [Guia de desenvolvimento (pt-BR)](docs/DEVELOPMENT.pt-BR.md)
 
 ---
 
