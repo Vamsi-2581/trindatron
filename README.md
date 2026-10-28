@@ -144,7 +144,8 @@ Go deeper: [execution runtime](docs/EXECUTION_RUNTIME.md) ·
 [free compute pool](docs/FREE_COMPUTE_POOL.md) ·
 [local AI lab](docs/LOCAL_AI_LAB.md) ·
 [mobile app](docs/MOBILE.md) (pt-BR) ·
-[architecture decisions](docs/architecture/decisions) ·\n[Developer guide (English)](docs/DEVELOPMENT.md) · [Guia de desenvolvimento (pt-BR)](docs/DEVELOPMENT.pt-BR.md)
+[architecture decisions](docs/architecture/decisions) ·
+[Developer guide (English)](docs/DEVELOPMENT.md) · [Guia de desenvolvimento (pt-BR)](docs/DEVELOPMENT.pt-BR.md)
 
 ---
 
@@ -156,7 +157,7 @@ one LLM key. The cheapest path is a **free Groq key**:
 
 ### 1. Backend
 
-> **Windows:** clone into a short path such as `C:\src`: a dependency's
+> **Windows:** clone into a short path such as `C:\\src`: a dependency's
 > tokenizer cache can exceed the 260-character path limit in deep folders.
 
 ```bash
